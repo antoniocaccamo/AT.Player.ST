@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>AT.Player.ST</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>false</SignAssembly>
+    <StartupObject>Company.WpfApplication1.App</StartupObject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FFME.Windows" Version="4.1.310" />
+    <PackageReference Include="Stylet" Version="1.3.0.0" />
+  </ItemGroup>
+
+</Project>

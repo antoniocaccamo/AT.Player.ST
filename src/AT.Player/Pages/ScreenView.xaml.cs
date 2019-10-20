@@ -6,13 +6,11 @@ namespace AT.Player.Pages
     /// <summary>
     /// Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class ScreenView : Window
     {
-        public ShellView()
+        public ScreenView()
         {
             InitializeComponent();
-
-            //MediaElement.Play();
         }
     }
 }

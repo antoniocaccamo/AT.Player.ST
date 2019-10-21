@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AT.Player.Pages.Screens
+namespace AT.Player.Pages.Settings
 {
-    class VideoViewModel
+    internal class SequenceViewModel
     {
     }
 }

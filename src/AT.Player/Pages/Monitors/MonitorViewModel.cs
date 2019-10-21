@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Stylet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AT.Player.Pages.Screens
+namespace AT.Player.Pages.Monitors
 {
-    class BrowserViewModel
+    public class MonitorViewModel : Screen
     {
     }
 }

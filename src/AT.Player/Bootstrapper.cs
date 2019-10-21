@@ -2,6 +2,8 @@
 using Stylet;
 using StyletIoC;
 using AT.Player.Pages;
+using AT.Player.Pages.Settings;
+using AT.Player.Pages.Monitors;
 
 namespace AT.Player
 {
@@ -28,5 +30,23 @@ namespace AT.Player
         {
             Stylet.Logging.LogManager.Enabled = true;
         }
+
+        protected override void ConfigureIoC(IStyletIoCBuilder builder)
+        {
+            base.ConfigureIoC(builder);
+
+            builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
+            builder.Bind<IMonitorSettingViewModelFactory>().ToAbstractFactory();
+        }
+    }
+
+    public interface IMonitorSettingViewModelFactory
+    {
+        MonitorSettingViewModel CreateMonitorSettingViewModel();
+    }
+
+    public interface IMonitorViewModelFactory
+    {
+        MonitorViewModel CreateMonitorViewModel();
     }
 }

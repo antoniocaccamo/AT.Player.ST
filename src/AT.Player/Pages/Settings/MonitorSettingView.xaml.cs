@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AT.Player.Pages.Screens
+namespace AT.Player.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for ImageView.xaml
+    /// Interaction logic for MonitorGroupView.xaml
     /// </summary>
-    public partial class ImageView : UserControl
+    public partial class MonitorSettingView : UserControl
     {
-        public ImageView()
+        public MonitorSettingView()
         {
             InitializeComponent();
         }

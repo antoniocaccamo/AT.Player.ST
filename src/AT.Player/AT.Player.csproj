@@ -45,6 +45,12 @@
     <Reference Include="FFmpeg.AutoGen, Version=4.1.0.5, Culture=neutral, PublicKeyToken=9b7632533a381715, processorArchitecture=MSIL">
       <HintPath>..\packages\FFmpeg.AutoGen.4.1.0.5\lib\net45\FFmpeg.AutoGen.dll</HintPath>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.6.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.6.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -92,35 +98,44 @@
     <Compile Include="Events\PalimpsestOpenEvent.cs" />
     <Compile Include="Events\ShowMonitorGroupEvemt.cs" />
     <Compile Include="Events\ShowWeatherSettingEvent.cs" />
-    <Compile Include="Pages\Screens\BrowserView.xaml.cs">
+    <Compile Include="Pages\Monitors\BrowserView.xaml.cs">
       <DependentUpon>BrowserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Screens\BrowserViewModel.cs" />
-    <Compile Include="Pages\Screens\ImageView.xaml.cs">
+    <Compile Include="Pages\Monitors\BrowserViewModel.cs" />
+    <Compile Include="Pages\Monitors\ImageView.xaml.cs">
       <DependentUpon>ImageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Screens\ImageViewModel.cs" />
-    <Compile Include="Pages\Screens\VideoViewModel.cs" />
-    <Compile Include="Pages\Settings\MonitorView.xaml.cs">
+    <Compile Include="Pages\Monitors\ImageViewModel.cs" />
+    <Compile Include="Pages\Monitors\MonitorView.xaml.cs">
       <DependentUpon>MonitorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Monitors\MonitorViewModel.cs" />
+    <Compile Include="Pages\Monitors\VideoViewModel.cs" />
+    <Compile Include="Pages\Settings\SequenceGroupView.xaml.cs">
+      <DependentUpon>SequenceGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\SequenceGroupViewModel.cs" />
+    <Compile Include="Pages\Settings\SequenceView.xaml.cs">
+      <DependentUpon>SequenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\MonitorSettingView.xaml.cs">
+      <DependentUpon>MonitorSettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\MonitorGroupView.xaml.cs">
       <DependentUpon>MonitorGroupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\MonitorViewModel.cs" />
+    <Compile Include="Pages\Settings\SequenceViewModel.cs" />
+    <Compile Include="Pages\Settings\MonitorSettingViewModel.cs" />
     <Compile Include="Pages\Settings\MonitorGroupViewModel.cs" />
     <Compile Include="Pages\Settings\WeatherView.xaml.cs">
       <DependentUpon>WeatherView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\WeatherViewModel.cs" />
-    <Compile Include="Pages\ScreenView.xaml.cs">
-      <DependentUpon>ScreenView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ShellViewModel.cs" />
-    <Compile Include="Pages\Screens\VideoView.xaml.cs">
+    <Compile Include="Pages\Monitors\VideoView.xaml.cs">
       <DependentUpon>VideoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -156,15 +171,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\Screens\BrowserView.xaml">
+    <Page Include="Pages\Monitors\BrowserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Screens\ImageView.xaml">
+    <Page Include="Pages\Monitors\ImageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\MonitorView.xaml">
+    <Page Include="Pages\Monitors\MonitorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\SequenceGroupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\SequenceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\MonitorSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -176,15 +203,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ScreenView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Screens\VideoView.xaml">
+    <Page Include="Pages\Monitors\VideoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

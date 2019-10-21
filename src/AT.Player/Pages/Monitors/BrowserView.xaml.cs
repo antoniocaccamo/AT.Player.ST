@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AT.Player.Pages.Screens
+namespace AT.Player.Pages.Monitors
 {
     /// <summary>
     /// Interaction logic for BrowserView.xaml

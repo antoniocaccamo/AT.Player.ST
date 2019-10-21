@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AT.Player.Pages.Settings
+namespace AT.Player.Pages.Monitors
 {
-    internal class MonitorViewModel
+    internal class ImageViewModel
     {
     }
 }

@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AT.Player.Pages.Settings
+namespace AT.Player.Pages.Monitors
 {
     /// <summary>
-    /// Interaction logic for MonitorGroupView.xaml
+    /// Interaction logic for MonitorView.xaml
     /// </summary>
-    public partial class MonitorView : UserControl
+    public partial class MonitorView : Window
     {
         public MonitorView()
         {

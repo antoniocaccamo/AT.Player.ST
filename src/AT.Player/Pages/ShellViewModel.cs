@@ -7,17 +7,21 @@ namespace AT.Player.Pages
     public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IHandle<IShowEvent>
     {
         private WeatherViewModel _weather;
+        private SequenceGroupViewModel _sequenceGroup;
         private MonitorGroupViewModel _monitorGroup;
 
-        public ShellViewModel(IEventAggregator events, MonitorGroupViewModel MonitorGroupViewModel, WeatherViewModel weatherViewModel)
+        public ShellViewModel(IEventAggregator events,
+            MonitorGroupViewModel monitorGroupViewModel, SequenceGroupViewModel sequenceGroupViewModel, WeatherViewModel weatherViewModel)
         {
             this.DisplayName = "AT Player";
-            this._monitorGroup = MonitorGroupViewModel;
+            this._monitorGroup = monitorGroupViewModel;
+            this._sequenceGroup = sequenceGroupViewModel;
             this._weather = weatherViewModel;
 
             events.Subscribe(this);
 
             Items.Add(_monitorGroup);
+            Items.Add(_sequenceGroup);
             Items.Add(_weather);
 
             this.ActivateItem(_weather);

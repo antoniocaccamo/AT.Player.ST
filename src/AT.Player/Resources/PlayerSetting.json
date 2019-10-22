@@ -1,0 +1,105 @@
+{
+  "ComputerName": "antonio",
+  "Locale": "en",
+  "SendAllMail": false,
+  "LogEnabled": false,
+  "FtpRefreh": 0.02,
+  "Weather": {
+    "Latitude": 45.08,
+    "Longitude": 7.40
+  },
+  "Size": {
+    "Width": 510,
+    "Height": 380
+  },
+  "Position": {
+    "Top": 50,
+    "Left": 550
+  },
+  "Settings": [
+    {
+      "Id": 1,
+      "Activation": {
+        "AllDay": true,
+        "Timed": {
+          "From": "08:00",
+          "To": "23:00"
+        }
+      },
+      "Palimpsest": "C:\\development\\workspaces\\antoniocaccamo\\AT.Player\\src\\AT.PLayer\\Resources\\p.01.json",
+      "Loops": 0,
+      "Screen": {
+        "Lock": true,
+        "View": true,
+        "Fade": false
+      },
+      "Watch": {
+        "ImageFile": " ",
+        "Date": {
+          "Font": {
+            "Name": "",
+            "Size": 4
+          },
+          "Color": { "ToArgb": 15 }
+        },
+        "Time": {
+          "Font": {
+            "Name": "",
+            "Size": 4
+          },
+          "Color": { "ToArgb": 15 }
+        }
+      },
+      "Size": {
+        "Width": 320,
+        "Height": 280
+      },
+      "Position": {
+        "Top": 50,
+        "Left": 250
+      }
+    }
+    //,{
+    //  "Id": 2,
+    //  "Activation": {
+    //    "AllDay": true,
+    //    "Timed": {
+    //      "From": "08:00",
+    //      "To": "23:00"
+    //    }
+    //  },
+    //  "Palimpsest": "C:\\development\\workspaces\\antoniocaccamo\\AT.Player\\src\\AT.PLayer\\Resources\\p.02.json",
+    //  "Loops": 0,
+    //  "Screen": {
+    //    "Lock": true,
+    //    "View": true,
+    //    "Fade": false
+    //  },
+    //  "Watch": {
+    //    "ImageFile": " ",
+    //    "Date": {
+    //      "Font": {
+    //        "Name": "",
+    //        "Size": 4
+    //      },
+    //      "Color": { "ToArgb": 15 }
+    //    },
+    //    "Time": {
+    //      "Font": {
+    //        "Name": "",
+    //        "Size": 4
+    //      },
+    //      "Color": { "ToArgb": 15 }
+    //    }
+    //  },
+    //  "Size": {
+    //    "Width": 320,
+    //    "Height": 280
+    //  },
+    //  "Position": {
+    //    "Top": 450,
+    //    "Left": 750
+    //  }
+    //}
+  ]
+}

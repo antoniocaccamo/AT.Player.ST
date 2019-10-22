@@ -1,0 +1,108 @@
+{
+    "Name": "default",
+    "LocalFile": "C:\\development\\workspaces\\antoniocaccamo\\AT.Player\\src\\AT.PLayer\\Resources\\Palimpset.json",
+    "RemoteFile": "at-adv/sequences/default.xseq",
+    "Activation": {
+        "AllDay": true
+    },
+    "Medias": [
+        {
+            "Type": "VIDEO",
+            "Duration": 23.06,
+            "LocalFile": "C:\\Program Files\\WindowsApps\\Microsoft.ZuneVideo_10.19031.11411.0_x64__8wekyb3d8bbwe\\Assets\\WHATSNEW_MTVCON.mp4",
+            "RemoteFile": "at-adv/videos/default/at.image.jpg",
+            "Days": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "Dated": {
+                "Start": "2019-06-29",
+                "End": "2019-09-29"
+            },
+            "Timed": {
+                "From": "08:00",
+                "To": "23:00"
+            },
+            "Cicles": 0
+        },
+        {
+            "Type": "IMAGE",
+            "Duration": 5,
+            "LocalFile": "C:\\Windows\\Web\\Wallpaper\\Theme2\\img8.jpg",
+            "RemoteFile": "at-adv/videos/default/at.image.jpg",
+            "Days": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "Dated": {
+                "Start": "2019-06-29",
+                "End": "2019-09-29"
+            },
+            "Timed": {
+                "From": "08:00",
+                "To": "23:00"
+            },
+            "Cicles": 0
+        },
+
+        {
+            "Type": "VIDEO",
+            "Duration": 23.06,
+            "LocalFile": "E:\\workspaces\\antoniocaccamo\\Big_Buck_Bunny_360_10s_2MB.mp4",
+            "RemoteFile": "at-adv/videos/default/at.image.jpg",
+            "Days": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "Dated": {
+                "Start": "2019-06-29",
+                "End": "2019-09-29"
+            },
+            "Timed": {
+                "From": "08:00",
+                "To": "23:00"
+            },
+            "Cicles": 0
+        },
+
+        {
+            "Type": "VIDEO",
+            "Duration": 23.06,
+            "LocalFile": "C:\\Program Files\\WindowsApps\\Microsoft.ZuneVideo_10.19031.11411.0_x64__8wekyb3d8bbwe\\Assets\\WHATSNEW_MTVCON.mp4",
+            "RemoteFile": "at-adv/videos/default/at.image.jpg",
+            "Days": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "Dated": {
+                "Start": "2019-06-29",
+                "End": "2019-09-29"
+            },
+            "Timed": {
+                "From": "08:00",
+                "To": "23:00"
+            },
+            "Cicles": 0
+        }
+    ]
+}

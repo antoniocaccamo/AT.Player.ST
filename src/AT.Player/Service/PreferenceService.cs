@@ -7,6 +7,9 @@
     internal class PreferenceService : IPreferenceService
     {
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
+        private static readonly string PREF_FILE = @"Resources/prefs.yml";
+
         private readonly IDeserializer _deserializer;
 
         public PreferenceService()
@@ -19,7 +22,7 @@
 
         Configuration.Preference IPreferenceService.Get()
         {
-            string yaml = System.IO.File.ReadAllText(@"prefs.yml");
+            string yaml = System.IO.File.ReadAllText(PREF_FILE);
             _logger.Info($"yaml : ${yaml}");
             var configuration = _deserializer.Deserialize<Configuration.Preference>(yaml);
             return configuration;

@@ -1,0 +1,82 @@
+{
+  "Name": "default",
+  "LocalFile": "C:\\development\\workspaces\\antoniocaccamo\\AT.Player\\src\\AT.PLayer\\Resources\\Palimpset.json",
+  "RemoteFile": "at-adv/sequences/default.xseq",
+  "Activation": {
+    "AllDay": true
+  },
+  "Medias": [
+    {
+      "Type": "IMAGE",
+      "Duration": 23.06,
+      "LocalFile": "C:\\Windows\\Web\\Wallpaper\\Theme2\\img8.jpg",
+      "RemoteFile": "at-adv/videos/default/at.image.jpg",
+      "Days": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "Dated": {
+        "Start": "08:00",
+        "End": "23:00"
+      },
+      "Timed": {
+        "From": "08:00",
+        "To": "23:00"
+      },
+      "Cicles": 0
+    },
+    {
+      "Type": "IMAGE",
+      "Duration": 23.06,
+      "LocalFile": "C:\\Windows\\Web\\Wallpaper\\Theme2\\img10.jpg",
+      "RemoteFile": "at-adv/videos/default/at.image.jpg",
+      "Days": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "Dated": {
+        "Start": "08:00",
+        "End": "23:00"
+      },
+      "Timed": {
+        "From": "08:00",
+        "To": "23:00"
+      },
+      "Cicles": 0
+    },
+    {
+      "Type": "VIDEO",
+      "Duration": 23.06,
+      "LocalFile": "E:\\workspaces\\antoniocaccamo\\Big_Buck_Bunny_360_10s_2MB.mp4",
+      "RemoteFile": "at-adv/videos/default/at.image.jpg",
+      "Days": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "Dated": {
+        "Start": "08:00",
+        "End": "23:00"
+      },
+      "Timed": {
+        "From": "08:00",
+        "To": "23:00"
+      },
+      "Cicles": 0
+    }
+  ]
+}

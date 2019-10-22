@@ -13,7 +13,12 @@ namespace AT.Player
     {
         #region Public Methods
 
-        MonitorSettingViewModel CreateMonitorSettingViewModel();
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        MonitorSettingViewModel CreateMonitorSettingViewModel(string channel);
 
         #endregion Public Methods
     }
@@ -22,7 +27,12 @@ namespace AT.Player
     {
         #region Public Methods
 
-        MonitorViewModel CreateMonitorViewModel();
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        MonitorViewModel CreateMonitorViewModel(string channel);
 
         #endregion Public Methods
     }
@@ -58,7 +68,7 @@ namespace AT.Player
             base.ConfigureIoC(builder);
             builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
             builder.Bind<IMonitorSettingViewModelFactory>().ToAbstractFactory();
-            builder.Bind<IConfigurationService>().ToInstance(new ConfigurationService());
+            builder.Bind<IPreferenceService>().ToInstance(new PreferenceService());
             builder.Bind<IContext>().ToInstance(new Context());
         }
 

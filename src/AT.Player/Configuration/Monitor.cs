@@ -9,13 +9,18 @@
 
         public Location Location { get; set; }
 
+        public Activation Activation { get; set; }
+
+        public string Sequence { get; set; }
+
         #endregion Public Properties
 
         #region Public Methods
 
         public override string ToString()
         {
-            return $"size [{Size}] location [{Location}]";
+            var ret = $"size [{Size}] location [{Location}] sequence [{Sequence}] activation [{Activation}]";
+            return ret;
         }
 
         #endregion Public Methods

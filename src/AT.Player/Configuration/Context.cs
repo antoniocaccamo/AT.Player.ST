@@ -8,7 +8,11 @@ namespace AT.Player.Configuration
 {
     internal class Context : IContext
     {
-        private Configuration _configuration;
-        Configuration IContext.Configuration { get => _configuration; set => _configuration = value; }
+        private Preference _configuration;
+        Preference IContext.Configuration { get => _configuration; set => _configuration = value; }
+
+        public void Dispose()
+        {
+        }
     }
 }

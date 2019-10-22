@@ -95,16 +95,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Configuration\Activation.cs" />
     <Compile Include="Configuration\Context.cs" />
     <Compile Include="Configuration\IContext.cs" />
-    <Compile Include="Service\ConfigurationService.cs" />
-    <Compile Include="Service\IConfigurationService.cs" />
+    <Compile Include="Pages\Settings\TaskbarView.xaml.cs">
+      <DependentUpon>TaskbarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\TaskbarViewModel.cs" />
+    <Compile Include="Service\PreferenceService.cs" />
+    <Compile Include="Service\IPreferenceService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\Preference.cs" />
     <Compile Include="Configuration\Dummy.cs" />
     <Compile Include="Configuration\Location.cs" />
-    <Compile Include="Configuration\Screen.cs" />
+    <Compile Include="Configuration\Monitor.cs" />
     <Compile Include="Configuration\Size.cs" />
     <Compile Include="Events\IShowEvent.cs" />
     <Compile Include="Events\PalimpsestOpenEvent.cs" />
@@ -167,6 +172,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="FodyWeavers.xml" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -211,6 +217,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Settings\MonitorGroupSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\TaskbarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,9 +10,9 @@
         Title="AT.Player" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}">
 
     <DockPanel>
-        <!--<GroupBox DockPanel.Dock="Top" Header="Navigate to">
-            <ContentControl s:View.Model="{Binding Taskbar}" />
-        </GroupBox>-->
+
+        <ContentControl DockPanel.Dock="Top" s:View.Model="{Binding Taskbar}" />
+
         <TabControl Style="{StaticResource StyletConductorTabControl}" />
     </DockPanel>
 </Window>

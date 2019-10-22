@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Configuration
 {
-    public interface IContext
+    public interface IContext : IDisposable
     {
-        Configuration Configuration { get; set; }
+        Preference Configuration { get; set; }
     }
 }

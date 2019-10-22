@@ -6,7 +6,7 @@
     using AT.Player.Service;
     using Stylet;
 
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IHandle<IShowEvent>
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive
     {
         #region Private Fields
 
@@ -35,8 +35,6 @@
 
             this._configurationService = configurationService;
             this._context = context;
-
-            events.Subscribe(this);
 
             Items.Add(_monitorGroup);
             Items.Add(_sequenceGroup);
@@ -77,23 +75,13 @@
 
         #endregion Public Properties
 
-        #region Public Methods
 
-        public void Handle(IShowEvent message)
-        {
-            if (message.GetType() == typeof(ShowWeatherSettingEvent))
-                this.ActivateItem(_weather);
-
-            this.ActivateItem(_monitorGroup);
-        }
-
-        #endregion Public Methods
 
         #region Protected Methods
 
         protected override void OnClose()
         {
-            _logger.Info("_context.Configuration : {}", _context.Configuration);
+            _configurationService.Save(_context.Configuration);
             base.OnClose();
         }
 

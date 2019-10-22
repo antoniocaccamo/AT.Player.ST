@@ -6,6 +6,7 @@ using AT.Player.Pages.Settings;
 using AT.Player.Pages.Monitors;
 using AT.Player.Service;
 using AT.Player.Configuration;
+using NLog;
 
 namespace AT.Player
 {
@@ -14,11 +15,10 @@ namespace AT.Player
         #region Public Methods
 
         /// <summary>
-        ///
         /// </summary>
         /// <param name="channel"></param>
         /// <returns></returns>
-        MonitorSettingViewModel CreateMonitorSettingViewModel(string channel);
+        MonitorSettingViewModel CreateMonitorSettingViewModel(string channel, Monitor monitor);
 
         #endregion Public Methods
     }
@@ -28,11 +28,10 @@ namespace AT.Player
         #region Public Methods
 
         /// <summary>
-        ///
         /// </summary>
         /// <param name="channel"></param>
         /// <returns></returns>
-        MonitorViewModel CreateMonitorViewModel(string channel);
+        MonitorViewModel CreateMonitorViewModel(string channel, Monitor monitor);
 
         #endregion Public Methods
     }
@@ -51,6 +50,19 @@ namespace AT.Player
         {
             // Perform any other configuration before the application starts
 
+            var config = new NLog.Config.LoggingConfiguration();
+
+            // Targets where to log to: File and Console
+            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "logs/file.log" };
+            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+
+            // Rules for mapping loggers to targets
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+
+            // Apply config
+            NLog.LogManager.Configuration = config;
+
             Unosquare.FFME.Library.FFmpegDirectory =
                 @"ffmpeg";
             // Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
@@ -66,8 +78,9 @@ namespace AT.Player
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             base.ConfigureIoC(builder);
-            builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
-            builder.Bind<IMonitorSettingViewModelFactory>().ToAbstractFactory();
+            builder.Autobind();
+            //builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
+            //builder.Bind<IMonitorSettingViewModelFactory>().ToAbstractFactory();
             builder.Bind<IPreferenceService>().ToInstance(new PreferenceService());
             builder.Bind<IContext>().ToInstance(new Context());
         }

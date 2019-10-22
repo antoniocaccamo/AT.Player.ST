@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Pages.Monitors
 {
-    internal class VideoViewModel
+    internal class VideoViewModel : AbstractMonitorViewModel
     {
     }
 }

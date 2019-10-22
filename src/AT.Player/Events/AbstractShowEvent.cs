@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Events
 {
-    public interface IShowEvent
+    public abstract class AbstractShowEvent
     {
+        public Uri Source { get; set; }
     }
 }

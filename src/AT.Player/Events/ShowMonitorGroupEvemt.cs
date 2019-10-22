@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Events
 {
-    internal class ShowMonitorGroupEvemt : IShowEvent
+    internal class ShowMonitorGroupEvemt
     {
     }
 }

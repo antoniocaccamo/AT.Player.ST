@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Events
 {
-    internal class ShowWeatherSettingEvent
+    internal class MonitorShowImageEvent : AbstractShowEvent
     {
     }
 }

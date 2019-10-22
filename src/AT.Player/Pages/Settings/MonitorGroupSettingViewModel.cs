@@ -5,18 +5,22 @@ namespace AT.Player.Pages.Settings
 {
     public class MonitorGroupSettingViewModel : Conductor<IScreen>.Collection.AllActive
     {
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IWindowManager _windowManager;
-        private readonly IMonitorSettingViewModelFactory _monitorViewModelFactory;
+        private readonly IEventAggregator _events;
         private readonly IContext _context;
+        private readonly IMonitorSettingViewModelFactory monitorSettingViewModelFactory;
 
-        public MonitorGroupSettingViewModel(IWindowManager windowManager, IContext context, IMonitorSettingViewModelFactory monitorViewModelFactory)
+        public MonitorGroupSettingViewModel(IWindowManager windowManager, IEventAggregator events, IContext context
+            //7IMonitorSettingViewModelFactory monitorSettingViewModelFactory
+            )
         {
             DisplayName = "Monitors Manager";
-            Logger.Warn("###### " + DisplayName);
+            _logger.Warn("###### " + DisplayName);
             this._windowManager = windowManager;
-            this._monitorViewModelFactory = monitorViewModelFactory;
+            this._events = events;
             this._context = context;
+            //this.monitorSettingViewModelFactory = monitorSettingViewModelFactory;
         }
 
         protected override void OnInitialActivate()
@@ -27,13 +31,32 @@ namespace AT.Player.Pages.Settings
                 foreach (Configuration.Monitor _monitor in _context.Configuration.Monitors)
                 {
                     var channel = $"monitor #{mnt}";
-                    MonitorSettingViewModel m = // _monitorViewModelFactory.CreateMonitorSettingViewModel(channel);
-                        new MonitorSettingViewModel(_windowManager, null, channel, _monitor);
+                    MonitorSettingViewModel m =
+                        // monitorSettingViewModelFactory.CreateMonitorSettingViewModel(channel, _monitor)
+                        new MonitorSettingViewModel(_windowManager, _events, channel, _monitor)
+                    ;
                     m.DisplayName += $" | {channel}";
                     Items.Add(m);
                     mnt++;
                 }
             }
+        }
+
+        protected override void OnViewLoaded()
+        {
+            base.OnViewLoaded();
+
+            _logger.Warn("###### send evts");
+
+            uint mnt = 1;
+            var channel = $"monitor #{mnt}";
+            var evti = new Events.MonitorShowImageEvent() { Source = new System.Uri(_context.Configuration.Dummy.Image) };
+            _events.Publish(evti, channel);
+
+            mnt++;
+            channel = $"monitor #{mnt}";
+            var evtv = new Events.MonitorShowVideoEvent() { Source = new System.Uri(_context.Configuration.Dummy.Video) };
+            _events.Publish(evtv, channel);
         }
     }
 }

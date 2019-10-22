@@ -10,19 +10,21 @@
 
         private readonly string _channel;
         private readonly Configuration.Monitor _monitor;
-        private readonly IMonitorViewModelFactory _monitorViewModelFactory;
+
+        //private readonly IMonitorViewModelFactory _monitorViewModelFactory;
         private readonly IWindowManager _windowManager;
 
+        private readonly IEventAggregator _events;
         private Monitors.MonitorViewModel _monitorVM;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public MonitorSettingViewModel(IWindowManager windowManager, IMonitorViewModelFactory monitorViewModelFactory, string channel, Configuration.Monitor monitor)
+        public MonitorSettingViewModel(IWindowManager windowManager, IEventAggregator events, string channel, Configuration.Monitor monitor)
         {
             this._windowManager = windowManager;
-            //this._monitorViewModelFactory = monitorViewModelFactory;
+            this._events = events;
             this._channel = channel;
             this._monitor = monitor;
 
@@ -44,7 +46,7 @@
         protected override void OnInitialActivate()
         {
             _monitorVM = // _monitorViewModelFactory.CreateMonitorViewModel(this._channel);
-                new Monitors.MonitorViewModel();
+                new Monitors.MonitorViewModel(_events, _channel, _monitor);
             this._windowManager.ShowWindow(_monitorVM);
         }
 

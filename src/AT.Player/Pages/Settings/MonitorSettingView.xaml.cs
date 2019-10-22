@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace AT.Player.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for MonitorGroupView.xaml
+    /// Interaction logic for MonitorGroupSettingsView.xaml
     /// </summary>
     public partial class MonitorSettingView : UserControl
     {

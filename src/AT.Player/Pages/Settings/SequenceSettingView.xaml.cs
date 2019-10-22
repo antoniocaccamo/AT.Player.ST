@@ -3,11 +3,11 @@
 namespace AT.Player.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for MonitorGroupView.xaml
+    /// Interaction logic for MonitorGroupSettingsView.xaml
     /// </summary>
-    public partial class SequenceView : UserControl
+    public partial class SequenceSettingView : UserControl
     {
-        public SequenceView()
+        public SequenceSettingView()
         {
             InitializeComponent();
         }

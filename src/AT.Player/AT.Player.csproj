@@ -42,8 +42,8 @@
     <Reference Include="ffme.win, Version=4.1.310.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FFME.Windows.4.1.310\lib\net472\ffme.win.dll</HintPath>
     </Reference>
-    <Reference Include="FFmpeg.AutoGen, Version=4.1.0.5, Culture=neutral, PublicKeyToken=9b7632533a381715, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFmpeg.AutoGen.4.1.0.5\lib\net45\FFmpeg.AutoGen.dll</HintPath>
+    <Reference Include="FFmpeg.AutoGen, Version=4.2.0.0, Culture=neutral, PublicKeyToken=9b7632533a381715, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFmpeg.AutoGen.4.2.0\lib\net45\FFmpeg.AutoGen.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -81,6 +81,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.8.0.0\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -92,8 +95,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Configuration\Context.cs" />
+    <Compile Include="Configuration\IContext.cs" />
+    <Compile Include="Service\ConfigurationService.cs" />
+    <Compile Include="Service\IConfigurationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\Dummy.cs" />
+    <Compile Include="Configuration\Location.cs" />
+    <Compile Include="Configuration\Screen.cs" />
+    <Compile Include="Configuration\Size.cs" />
     <Compile Include="Events\IShowEvent.cs" />
     <Compile Include="Events\PalimpsestOpenEvent.cs" />
     <Compile Include="Events\ShowMonitorGroupEvemt.cs" />
@@ -111,26 +123,26 @@
     </Compile>
     <Compile Include="Pages\Monitors\MonitorViewModel.cs" />
     <Compile Include="Pages\Monitors\VideoViewModel.cs" />
-    <Compile Include="Pages\Settings\SequenceGroupView.xaml.cs">
-      <DependentUpon>SequenceGroupView.xaml</DependentUpon>
+    <Compile Include="Pages\Settings\SequenceGroupSettingView.xaml.cs">
+      <DependentUpon>SequenceGroupSettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\SequenceGroupViewModel.cs" />
-    <Compile Include="Pages\Settings\SequenceView.xaml.cs">
-      <DependentUpon>SequenceView.xaml</DependentUpon>
+    <Compile Include="Pages\Settings\SequenceSettingView.xaml.cs">
+      <DependentUpon>SequenceSettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\MonitorSettingView.xaml.cs">
       <DependentUpon>MonitorSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\MonitorGroupView.xaml.cs">
-      <DependentUpon>MonitorGroupView.xaml</DependentUpon>
+    <Compile Include="Pages\Settings\MonitorGroupSettingView.xaml.cs">
+      <DependentUpon>MonitorGroupSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\SequenceViewModel.cs" />
+    <Compile Include="Pages\Settings\SequenceSettingViewModel.cs" />
     <Compile Include="Pages\Settings\MonitorSettingViewModel.cs" />
-    <Compile Include="Pages\Settings\MonitorGroupViewModel.cs" />
-    <Compile Include="Pages\Settings\WeatherView.xaml.cs">
-      <DependentUpon>WeatherView.xaml</DependentUpon>
+    <Compile Include="Pages\Settings\MonitorGroupSettingViewModel.cs" />
+    <Compile Include="Pages\Settings\WeatherSettingView.xaml.cs">
+      <DependentUpon>WeatherSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\WeatherViewModel.cs" />
+    <Compile Include="Pages\Settings\WeatherSettingViewModel.cs" />
     <Compile Include="Pages\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +174,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="prefs.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -183,11 +198,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\SequenceGroupView.xaml">
+    <Page Include="Pages\Settings\SequenceGroupSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Settings\SequenceView.xaml">
+    <Page Include="Pages\Settings\SequenceSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -195,11 +210,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Settings\MonitorGroupView.xaml">
+    <Page Include="Pages\Settings\MonitorGroupSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\WeatherView.xaml">
+    <Page Include="Pages\Settings\WeatherSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,5 +236,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Fody.6.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.0.0\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.1.3\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.1.3\build\PropertyChanged.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\FFmpeg.Shared.4.0.2\build\FFmpeg.Shared.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\FFmpeg.Shared.4.0.2\build\FFmpeg.Shared.targets'))" />
   </Target>
+  <Import Project="..\packages\FFmpeg.Shared.4.0.2\build\FFmpeg.Shared.targets" Condition="Exists('..\packages\FFmpeg.Shared.4.0.2\build\FFmpeg.Shared.targets')" />
 </Project>

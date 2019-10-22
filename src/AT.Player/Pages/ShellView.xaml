@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="https://github.com/canton7/Stylet"
         xmlns:local="clr-namespace:AT.Player.Pages"
-        xmlns:ffme="clr-namespace:Unosquare.FFME;assembly=ffme.win"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:ShellViewModel}"
-        Title="AT.Player" Height="450" Width="800">
+        Title="AT.Player" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}">
 
     <DockPanel>
         <!--<GroupBox DockPanel.Dock="Top" Header="Navigate to">

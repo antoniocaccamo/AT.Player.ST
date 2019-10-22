@@ -2,12 +2,12 @@
 
 namespace AT.Player.Pages.Settings
 {
-    public class MonitorGroupViewModel : Conductor<IScreen>.Collection.AllActive
+    public class MonitorGroupSettingViewModel : Conductor<IScreen>.Collection.AllActive
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IMonitorSettingViewModelFactory _monitorViewModelFactory;
 
-        public MonitorGroupViewModel(IWindowManager windowManager, IMonitorSettingViewModelFactory monitorViewModelFactory)
+        public MonitorGroupSettingViewModel(IWindowManager windowManager, IMonitorSettingViewModelFactory monitorViewModelFactory)
         {
             DisplayName = "Monitors Manager";
             Logger.Warn("###### " + DisplayName);

@@ -18,9 +18,9 @@ namespace AT.Player.Pages.Settings
     /// <summary>
     /// Interaction logic for WeatherView.xaml
     /// </summary>
-    public partial class WeatherView : UserControl
+    public partial class WeatherSettingView : UserControl
     {
-        public WeatherView()
+        public WeatherSettingView()
         {
             InitializeComponent();
         }

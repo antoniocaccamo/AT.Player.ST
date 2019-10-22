@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Pages.Settings
 {
-    public class WeatherViewModel : Screen
+    public class WeatherSettingViewModel : Screen
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public WeatherViewModel() : base()
+        public WeatherSettingViewModel() : base()
 
         {
             DisplayName = "Weather Manager";

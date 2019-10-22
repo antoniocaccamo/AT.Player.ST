@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Pages.Settings
 {
-    public class SequenceGroupViewModel : Stylet.Screen
+    public class SequenceGroupSettingViewModel : Stylet.Screen
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public SequenceGroupViewModel() : base()
+        public SequenceGroupSettingViewModel() : base()
         {
             DisplayName = "Sequence Manager";
             Logger.Warn("###### " + DisplayName);

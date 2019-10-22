@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Pages.Settings
 {
-    internal class SequenceViewModel
+    internal class SequenceSettingViewModel
     {
     }
 }

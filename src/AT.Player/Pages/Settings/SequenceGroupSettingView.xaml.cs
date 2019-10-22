@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AT.Player.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for MonitorGroupView.xaml
+    /// Interaction logic for MonitorGroupSettingsView.xaml
     /// </summary>
-    public partial class MonitorGroupView : UserControl
+    public partial class SequenceGroupSettingView : UserControl
     {
-        public MonitorGroupView()
+        public SequenceGroupSettingView()
         {
             InitializeComponent();
         }

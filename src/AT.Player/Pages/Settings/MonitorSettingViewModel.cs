@@ -9,8 +9,8 @@
         private static readonly BindableCollection<LabelledValue<Configuration.Activation.ActivationEnum>> _activationEnum =
             new BindableCollection<LabelledValue<Configuration.Activation.ActivationEnum>>()
             {
-                LabelledValue.Create("All Day", Configuration.Activation.ActivationEnum.ALLDAY),
-                LabelledValue.Create("Timed", Configuration.Activation.ActivationEnum.TIMED)
+                LabelledValue.Create(Configuration.Activation.ActivationEnum.ALLDAY.ToString(), Configuration.Activation.ActivationEnum.ALLDAY),
+                LabelledValue.Create(Configuration.Activation.ActivationEnum.TIMED.ToString(), Configuration.Activation.ActivationEnum.TIMED)
             };
 
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
@@ -18,9 +18,9 @@
         private static readonly BindableCollection<LabelledValue<Configuration.Activation.WhenNotActiveEnum>> _whenNotActiveEnum =
             new BindableCollection<LabelledValue<Configuration.Activation.WhenNotActiveEnum>>()
             {
-                LabelledValue.Create("Black", Configuration.Activation.WhenNotActiveEnum.BLACK),
-                LabelledValue.Create("Image", Configuration.Activation.WhenNotActiveEnum.IMAGE),
-                LabelledValue.Create("Watch", Configuration.Activation.WhenNotActiveEnum.WATCH)
+                LabelledValue.Create(Configuration.Activation.WhenNotActiveEnum.BLACK.ToString(), Configuration.Activation.WhenNotActiveEnum.BLACK),
+                LabelledValue.Create(Configuration.Activation.WhenNotActiveEnum.IMAGE.ToString(), Configuration.Activation.WhenNotActiveEnum.IMAGE),
+                LabelledValue.Create(Configuration.Activation.WhenNotActiveEnum.WATCH.ToString(), Configuration.Activation.WhenNotActiveEnum.WATCH)
             };
 
         private readonly string _channel;
@@ -49,8 +49,8 @@
             DisplayName = "Monitor Manager";
             _logger.Warn("###### " + DisplayName);
 
-            _selectedActivationEnum = new LabelledValue<Configuration.Activation.ActivationEnum>() { Value = _monitor.Activation.Type };
-            _selectedWhenNotActiveEnum = new LabelledValue<Configuration.Activation.WhenNotActiveEnum>() { Value = _monitor.Activation.WhenNotActive };
+            _selectedActivationEnum = LabelledValue.Create(_monitor.Activation.Type.ToString(), _monitor.Activation.Type);
+            _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
         }
 
         #endregion Public Constructors

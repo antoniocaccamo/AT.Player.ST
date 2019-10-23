@@ -9,7 +9,7 @@ namespace AT.Player.Pages.Settings
         private readonly IWindowManager _windowManager;
         private readonly IEventAggregator _events;
         private readonly IContext _context;
-        private readonly IMonitorSettingViewModelFactory monitorSettingViewModelFactory;
+        //private readonly IMonitorSettingViewModelFactory monitorSettingViewModelFactory;
 
         public MonitorGroupSettingViewModel(IWindowManager windowManager, IEventAggregator events, IContext context
             //7IMonitorSettingViewModelFactory monitorSettingViewModelFactory

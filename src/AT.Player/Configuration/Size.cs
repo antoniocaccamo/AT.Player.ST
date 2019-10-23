@@ -1,5 +1,4 @@
 ﻿/// <summary>
-///
 /// </summary>
 namespace AT.Player.Configuration
 {
@@ -11,7 +10,7 @@ namespace AT.Player.Configuration
 
         #region Public Properties
 
-        private double _width;
+        //private double _width;
 
         public double Width { get; set; }
         //{

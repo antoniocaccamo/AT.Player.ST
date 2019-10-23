@@ -7,9 +7,10 @@
              xmlns:s="https://github.com/canton7/Stylet"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <TextBlock DockPanel.Dock="Top" Text="AAAAAAAAAAAAAAAAAAAA" Height="40" />
-        <Label Content="DDDDDDDDDDDDDDDDDD" />
-        <TabControl Style="{StaticResource StyletConductorTabControl}" />
-    </DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TabControl Style="{StaticResource StyletConductorTabControl}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Grid>
 </UserControl>

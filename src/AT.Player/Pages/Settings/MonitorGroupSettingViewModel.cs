@@ -40,6 +40,10 @@ namespace AT.Player.Pages.Settings
                     mnt++;
                 }
             }
+            if (Items.Count > 0)
+            {
+                this.ActivateItem(Items[0]);
+            }
         }
 
         protected override void OnViewLoaded()

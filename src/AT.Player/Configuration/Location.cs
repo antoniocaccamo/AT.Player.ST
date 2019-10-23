@@ -3,7 +3,7 @@
 /// </summary>
 namespace AT.Player.Configuration
 {
-    public class Location
+    public class Location : Stylet.PropertyChangedBase
     {
         //public Location(double l, double t)
         //{

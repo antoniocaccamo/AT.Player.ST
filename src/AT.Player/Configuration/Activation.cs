@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Activation
+    public class Activation : Stylet.PropertyChangedBase
     {
         public enum ActivationEnum
         {

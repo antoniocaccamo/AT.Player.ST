@@ -4,22 +4,31 @@
     using AT.Player.Events;
     using Stylet;
 
+    /// <summary>
+    ///
+    /// </summary>
     public class MonitorViewModel : Conductor<IScreen>.StackNavigation, IHandle<MonitorShowVideoEvent>, IHandle<MonitorShowImageEvent>
     {
-        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
-
         #region Private Fields
+
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         private readonly string _channel;
         private readonly IEventAggregator _events;
         private readonly Monitor _monitor;
-        private VideoViewModel _video;
         private ImageViewModel _image;
+        private VideoViewModel _video;
 
         #endregion Private Fields
 
         #region Public Constructors
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="events"></param>
+        /// <param name="channel"></param>
+        /// <param name="monitor"></param>
         public MonitorViewModel(IEventAggregator events, string channel, Monitor monitor)
         {
             this._events = events;
@@ -36,6 +45,8 @@
         #endregion Public Constructors
 
         #region Public Properties
+
+        public Configuration.Monitor Monitor => _monitor;
 
         public double Height
         {
@@ -61,6 +72,10 @@
             set => _monitor.Size.Width = value;
         }
 
+        #endregion Public Properties
+
+        #region Public Methods
+
         void IHandle<MonitorShowVideoEvent>.Handle(MonitorShowVideoEvent message)
         {
             _logger.Info("receveid msg {0}", message.Source);
@@ -77,6 +92,6 @@
             this.ActivateItem(_image);
         }
 
-        #endregion Public Properties
+        #endregion Public Methods
     }
 }

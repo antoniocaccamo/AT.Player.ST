@@ -9,6 +9,6 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Image  Source="{Binding Source}" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" OpacityMask="Black" />
+        <Image  Source="{Binding Source}" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>

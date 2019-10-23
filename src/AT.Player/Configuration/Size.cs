@@ -3,11 +3,25 @@
 /// </summary>
 namespace AT.Player.Configuration
 {
-    public class Size
+    using Stylet;
+
+    public class Size : PropertyChangedBase
     {
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
         #region Public Properties
 
-        public double Width { get; set; }
+        private double _width;
+
+        public double Width
+        {
+            get => _width;
+            set
+            {
+                _logger.Warn("width changed {0}", value);
+                SetAndNotify(ref this._width, value);
+            }
+        }
 
         public double Height { get; set; }
 

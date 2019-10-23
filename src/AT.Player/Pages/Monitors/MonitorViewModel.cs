@@ -48,29 +48,29 @@
 
         public Configuration.Monitor Monitor => _monitor;
 
-        public double Height
-        {
-            get => _monitor.Size.Height;
-            set => _monitor.Size.Height = value;
-        }
+        //public double Height
+        //{
+        //    get => _monitor.Size.Height;
+        //    set => _monitor.Size.Height = value;
+        //}
 
-        public double Left
-        {
-            get => _monitor.Location.Left;
-            set => _monitor.Location.Left = value;
-        }
+        //public double Left
+        //{
+        //    get => _monitor.Location.Left;
+        //    set => _monitor.Location.Left = value;
+        //}
 
-        public double Top
-        {
-            get => _monitor.Location.Top;
-            set => _monitor.Location.Top = value;
-        }
+        //public double Top
+        //{
+        //    get => _monitor.Location.Top;
+        //    set => _monitor.Location.Top = value;
+        //}
 
-        public double Width
-        {
-            get => _monitor.Size.Width;
-            set => _monitor.Size.Width = value;
-        }
+        //public double Width
+        //{
+        //    get => _monitor.Size.Width;
+        //    set => _monitor.Size.Width = value;
+        //}
 
         #endregion Public Properties
 

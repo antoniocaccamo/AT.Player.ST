@@ -5,7 +5,7 @@ namespace AT.Player.Configuration
 {
     using Stylet;
 
-    public class Size : PropertyChangedBase
+    public class Size //: PropertyChangedBase
     {
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -13,15 +13,15 @@ namespace AT.Player.Configuration
 
         private double _width;
 
-        public double Width
-        {
-            get => _width;
-            set
-            {
-                _logger.Warn("width changed {0}", value);
-                SetAndNotify(ref this._width, value);
-            }
-        }
+        public double Width { get; set; }
+        //{
+        //    get => _width;
+        //    set
+        //    {
+        //        _logger.Warn("width changed {0}", value);
+        //        SetAndNotify(ref this._width, value);
+        //    }
+        //}
 
         public double Height { get; set; }
 

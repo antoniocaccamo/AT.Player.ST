@@ -18,7 +18,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -28,7 +28,7 @@
 
         <GroupBox Header="Size / Location"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch"
+                  VerticalAlignment="Top"
                   Grid.Row="0"
                   Grid.Column="0">
 
@@ -99,6 +99,59 @@
                         Value="{Binding Monitor.Location.Left, Mode=TwoWay}">
                 </xctk:LongUpDown>
             </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Palimpsest Reproduction"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top"
+                  Grid.Row="0"
+                  Grid.Column="1">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:PackIcon Kind="EventTime" HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="0" />
+
+                <ComboBox  materialDesign:HintAssist.Hint="Timer"
+                           HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="1" ItemsSource="{Binding ActivationEnumValues}"
+                           SelectedItem="{Binding SelectedActivationEnum}">
+                </ComboBox>
+
+                <materialDesign:PackIcon Kind="Timelapse" HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="2" />
+
+                <ComboBox  materialDesign:HintAssist.Hint="Timetable"
+                           HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="3" ItemsSource="{Binding WhenNotActiveEnumValues}"
+                           SelectedItem="{Binding SelectedWhenNotActiveEnum}">
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Palimpset and Player"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Grid.Row="1"
+                  Grid.Column="0" Grid.ColumnSpan="2">
         </GroupBox>
     </Grid>
 </UserControl>

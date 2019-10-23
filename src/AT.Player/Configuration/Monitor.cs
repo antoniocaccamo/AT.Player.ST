@@ -1,6 +1,6 @@
 ﻿namespace AT.Player.Configuration
 {
-    public class Monitor : Stylet.PropertyChangedBase
+    public class Monitor //: Stylet.PropertyChangedBase
 
     {
         #region Public Properties

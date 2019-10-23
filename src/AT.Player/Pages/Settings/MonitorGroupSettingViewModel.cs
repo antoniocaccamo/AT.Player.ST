@@ -25,6 +25,7 @@ namespace AT.Player.Pages.Settings
 
         protected override void OnInitialActivate()
         {
+            MonitorSettingViewModel first = null;
             using (_context)
             {
                 uint mnt = 1;
@@ -38,12 +39,12 @@ namespace AT.Player.Pages.Settings
                     m.DisplayName += $" | {channel}";
                     Items.Add(m);
                     mnt++;
+                    if (first == null)
+                        first = m;
                 }
             }
-            if (Items.Count > 0)
-            {
-                this.ActivateItem(Items[0]);
-            }
+
+            this.ActivateItem(first);
         }
 
         protected override void OnViewLoaded()

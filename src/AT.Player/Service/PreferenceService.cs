@@ -15,6 +15,7 @@
         public PreferenceService()
         {
             _serializer = new SerializerBuilder()
+                                .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                 .Build();
 
             _deserializer = new DeserializerBuilder()

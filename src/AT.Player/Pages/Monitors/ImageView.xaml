@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
 
-    <WrapPanel>
-        <Image  Source="{Binding Source}" />
-    </WrapPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Image  Source="{Binding Source}" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" OpacityMask="Black" />
+    </Grid>
 </UserControl>

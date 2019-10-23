@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Pages.Monitors
 {
-    internal class BrowserViewModel : AbstractMonitorViewModel
-
+    public class BrowserViewModel : AbstractMonitorViewModel
     {
     }
 }

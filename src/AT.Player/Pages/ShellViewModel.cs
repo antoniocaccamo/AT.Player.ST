@@ -17,7 +17,7 @@
         private readonly SequenceGroupSettingViewModel _sequenceGroup;
         private readonly TaskbarViewModel _taskbar;
         private readonly WeatherSettingViewModel _weather;
-        private IContext _context;
+        private readonly IContext _context;
 
         #endregion Private Fields
 

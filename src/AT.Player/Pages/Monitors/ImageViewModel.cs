@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Pages.Monitors
 {
-    internal class ImageViewModel : AbstractMonitorViewModel
+    public class ImageViewModel : AbstractMonitorViewModel
     {
     }
 }

@@ -14,7 +14,7 @@
         private readonly IEventAggregator _events;
         private readonly Monitor _monitor;
         private VideoViewModel _video;
-        private ImageViewModel image;
+        private ImageViewModel _image;
 
         #endregion Private Fields
 
@@ -28,7 +28,7 @@
             DisplayName = channel;
 
             this._video = new VideoViewModel();
-            this.image = new ImageViewModel();
+            this._image = new ImageViewModel();
 
             _events.Subscribe(this, channel);
         }
@@ -64,15 +64,17 @@
         void IHandle<MonitorShowVideoEvent>.Handle(MonitorShowVideoEvent message)
         {
             _logger.Info("receveid msg {0}", message.Source);
-            image.Source = message.Source;
-            this.ActivateItem(image);
+
+            _video.Source = message.Source;
+            this.ActivateItem(_video);
         }
 
         void IHandle<MonitorShowImageEvent>.Handle(MonitorShowImageEvent message)
         {
             _logger.Info("receveid msg {0}", message.Source);
-            _video.Source = message.Source;
-            this.ActivateItem(_video);
+
+            _image.Source = message.Source;
+            this.ActivateItem(_image);
         }
 
         #endregion Public Properties

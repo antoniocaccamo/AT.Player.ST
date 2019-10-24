@@ -1,5 +1,6 @@
 ﻿namespace AT.Player.Configuration
 {
+    [ToString]
     public class Monitor //: Stylet.PropertyChangedBase
 
     {
@@ -14,15 +15,5 @@
         public string Sequence { get; set; }
 
         #endregion Public Properties
-
-        #region Public Methods
-
-        public override string ToString()
-        {
-            var ret = $"size [{Size}] location [{Location}] sequence [{Sequence}] activation [{Activation}]";
-            return ret;
-        }
-
-        #endregion Public Methods
     }
 }

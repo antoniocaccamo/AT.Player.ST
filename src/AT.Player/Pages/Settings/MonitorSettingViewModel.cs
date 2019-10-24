@@ -1,5 +1,7 @@
 ﻿namespace AT.Player.Pages.Settings
 {
+    using AT.Player.Model;
+    using AT.Player.Service;
     using Stylet;
 
     public class MonitorSettingViewModel : Screen
@@ -34,6 +36,8 @@
 
         private LabelledValue<Configuration.Activation.ActivationEnum> _selectedActivationEnum;
         private LabelledValue<Configuration.Activation.WhenNotActiveEnum> _selectedWhenNotActiveEnum;
+
+        private PalimpsestService _palimpsestService = new PalimpsestService();
 
         #endregion Private Fields
 
@@ -118,6 +122,11 @@
             _monitorVM = // _monitorViewModelFactory.CreateMonitorViewModel(this._channel);
                 new Monitors.MonitorViewModel(_events, _channel, _monitor);
             this._windowManager.ShowWindow(_monitorVM);
+
+            Palimpsest palimpsest = //_palimpsestService.GetAsync(_monitor.Sequence).Result
+                _palimpsestService.Get(_monitor.Sequence);
+
+            _logger.Info("palimpsest : {0}", palimpsest);
         }
 
         #endregion Protected Methods

@@ -8,26 +8,21 @@
     {
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private static readonly string PREF_FILE = @"Resources/prefs.yml";
-        private readonly ISerializer _serializer;
-        private readonly IDeserializer _deserializer;
+        private static readonly string PREF_FILE = @"Resources/prefs.yaml";
 
-        public PreferenceService()
-        {
-            _serializer = new SerializerBuilder()
+        private static readonly ISerializer _serializer = new SerializerBuilder()
                                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                 .Build();
 
-            _deserializer = new DeserializerBuilder()
+        private static readonly IDeserializer _deserializer = new DeserializerBuilder()
                                         .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                         .IgnoreUnmatchedProperties()
                                         .Build();
-        }
 
         Configuration.Preference IPreferenceService.Get()
         {
             string yaml = System.IO.File.ReadAllText(PREF_FILE);
-            _logger.Info($"yaml : ${yaml}");
+            _logger.Info("yaml : {0}", yaml);
             var configuration = _deserializer.Deserialize<Configuration.Preference>(yaml);
             return configuration;
         }
@@ -35,7 +30,7 @@
         void IPreferenceService.Save(Configuration.Preference configuration)
         {
             var yaml = _serializer.Serialize(configuration);
-            _logger.Info($"yaml : ${yaml}");
+            _logger.Info("yaml : {0}", yaml);
         }
     }
 }

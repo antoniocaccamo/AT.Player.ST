@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AT.Player.Configuration
+﻿namespace AT.Player.Configuration
 {
+    [ToString]
     public class Dummy
     {
         #region Public Properties
@@ -15,14 +10,5 @@ namespace AT.Player.Configuration
         public string Video { get; set; }
 
         #endregion Public Properties
-
-        #region Public Methods
-
-        public override string ToString()
-        {
-            return $"Image [{Image}] Video [{Video}]";
-        }
-
-        #endregion Public Methods
     }
 }

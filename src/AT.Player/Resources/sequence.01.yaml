@@ -1,0 +1,13 @@
+﻿---
+
+medias:
+    - type : VIDEO
+      location: LOCAL
+#      days: YYYYYYY
+      localFile: "C:\\Program Files\\WindowsApps\\Microsoft.Windows.Photos_2019.19071.17920.0_x64__8wekyb3d8bbwe\\AppCS\\Assets\\NewsControl_WhatsNewMedia\\620x252_3DModels.mp4"
+
+    - type : IMAGE
+      location: LOCAL
+#      days: YYYYYYY
+      localFile: "C:\\Windows\\Web\\Screen\\img100.jpg"
+...

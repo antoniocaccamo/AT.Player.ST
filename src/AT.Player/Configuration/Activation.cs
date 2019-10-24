@@ -1,13 +1,12 @@
 ﻿namespace AT.Player.Configuration
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    [ToString]
     public class Activation //: Stylet.PropertyChangedBase
     {
+        #region Public Enums
+
         public enum ActivationEnum
         {
             ALLDAY,
@@ -21,20 +20,23 @@
             WATCH
         }
 
+        #endregion Public Enums
+
+        #region Public Properties
+
+        public string Image { get; set; }
         public ActivationEnum Type { get; set; }
-
-        private System.DateTime From { get; set; }
-
-        private System.DateTime To { get; set; }
 
         public WhenNotActiveEnum WhenNotActive { get; set; }
 
-        public string Image { get; set; }
+        #endregion Public Properties
 
-        public override string ToString()
-        {
-            var ret = $"Type {Type} From {From} To {To} WhenNotActive {WhenNotActive} Image {Image}";
-            return ret;
-        }
+        #region Private Properties
+
+        private TimeSpan From { get; set; }
+
+        private TimeSpan To { get; set; }
+
+        #endregion Private Properties
     }
 }

@@ -1,8 +1,8 @@
-﻿using Stylet;
-using System.Collections.Generic;
-
-namespace AT.Player.Configuration
+﻿namespace AT.Player.Configuration
 {
+    using Stylet;
+
+    [ToString]
     public class Preference
     {
         #region Public Properties
@@ -18,19 +18,5 @@ namespace AT.Player.Configuration
         public BindableCollection<Monitor> Monitors { get; set; }
 
         #endregion Public Properties
-
-        #region Public Methods
-
-        public override string ToString()
-        {
-            var ret = $"dummy : [{Dummy}]\n"
-                + $"\tcomputer : [{Computer}]\n"
-                + $"\tsize [{Size}]\n"
-                + $"\tlocation [{Location}]\n"
-                + $"\tmonitors [{Monitors}]\n"; ;
-            return ret;
-        }
-
-        #endregion Public Methods
     }
 }

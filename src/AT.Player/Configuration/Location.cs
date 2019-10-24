@@ -3,6 +3,7 @@
 /// </summary>
 namespace AT.Player.Configuration
 {
+    [ToString]
     public class Location //: Stylet.PropertyChangedBase
     {
         //public Location(double l, double t)
@@ -18,14 +19,5 @@ namespace AT.Player.Configuration
         public double Left { get; set; }
 
         #endregion Public Properties
-
-        #region Public Methods
-
-        public override string ToString()
-        {
-            return $"Top [{Top}] Left [{Left}]";
-        }
-
-        #endregion Public Methods
     }
 }

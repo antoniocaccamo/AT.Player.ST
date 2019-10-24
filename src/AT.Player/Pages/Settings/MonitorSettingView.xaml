@@ -6,15 +6,10 @@
              xmlns:local="clr-namespace:AT.Player.Pages.Settings"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}">
+    <Grid Margin="0">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -26,9 +21,9 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <GroupBox Header="Size / Location"
+        <GroupBox Header="Size / Location" Margin="5"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top"
+                  VerticalAlignment="Stretch"
                   Grid.Row="0"
                   Grid.Column="0">
 
@@ -47,8 +42,17 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <materialDesign:PackIcon Kind="ArrowExpandHorizontal"  HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center" />
+                <materialDesign:PackIcon Kind="ArrowExpandHorizontal"
+                                         Width="24"
+                                         Height="24"
+                                         HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
+
+                <!--<TextBox
+                    Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding Monitor.Size.Width, Mode=TwoWay}" />-->
 
                 <xctk:LongUpDown
                         Grid.Row="0"
@@ -57,11 +61,11 @@
                         VerticalAlignment="Center"
                         Watermark="Width"
                         Text="Width"
-                        Value="{Binding Monitor.Size.Width, Mode=TwoWay}">
-                </xctk:LongUpDown>
+                        Value="{Binding Monitor.Size.Width, Mode=TwoWay}" />
 
                 <materialDesign:PackIcon Kind="ArrowExpandVertical" Grid.Row="1"
-                        Grid.Column="0"  HorizontalAlignment="Stretch"
+                        Grid.Column="0"  HorizontalAlignment="Stretch" Width="24"
+                                         Height="24"
                         VerticalAlignment="Center" />
 
                 <xctk:LongUpDown
@@ -70,11 +74,13 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Watermark="Height"
-                        Value="{Binding Monitor.Size.Height, Mode=TwoWay}">
-                </xctk:LongUpDown>
+                        Value="{Binding Monitor.Size.Height, Mode=TwoWay}" />
 
                 <materialDesign:PackIcon Kind="ArrowExpandDown" Grid.Row="0"
-                        Grid.Column="2"  HorizontalAlignment="Stretch"
+                                         Grid.Column="2"
+                                         Width="24"
+                                         Height="24"
+                                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
 
                 <xctk:LongUpDown
@@ -83,27 +89,26 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Watermark="Top"
-                        Value="{Binding Monitor.Location.Top, Mode=TwoWay}">
-                </xctk:LongUpDown>
+                        Value="{Binding Monitor.Location.Top, Mode=TwoWay}" />
 
                 <materialDesign:PackIcon Kind="ArrowExpandRight" Grid.Row="1"
                         Grid.Column="2"  HorizontalAlignment="Stretch"
+                                         Width="24"
+                                         Height="24"
                         VerticalAlignment="Center" />
 
                 <xctk:LongUpDown
                         Grid.Row="1"
                         Grid.Column="3"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center"
                         Watermark="Left"
-                        Value="{Binding Monitor.Location.Left, Mode=TwoWay}">
-                </xctk:LongUpDown>
+                        Value="{Binding Monitor.Location.Left, Mode=TwoWay}" />
             </Grid>
         </GroupBox>
 
         <GroupBox Header="Palimpsest Reproduction"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top"
+                  HorizontalAlignment="Stretch" Margin="5"
+                  VerticalAlignment="Stretch"
                   Grid.Row="0"
                   Grid.Column="1">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -120,34 +125,33 @@
                 </Grid.ColumnDefinitions>
 
                 <materialDesign:PackIcon Kind="EventTime" HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
+                        VerticalAlignment="Center" Width="24"
+                                         Height="24"
                            Grid.Row="0"
                            Grid.Column="0" />
 
                 <ComboBox  materialDesign:HintAssist.Hint="Timer"
                            HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
                            Grid.Row="0"
                            Grid.Column="1" ItemsSource="{Binding ActivationEnumValues}"
-                           SelectedItem="{Binding SelectedActivationEnum}">
-                </ComboBox>
+                           SelectedItem="{Binding SelectedActivationEnum}" />
 
-                <materialDesign:PackIcon Kind="Timelapse" HorizontalAlignment="Stretch"
+                <materialDesign:PackIcon Kind="StopwatchOff" HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
+                                         Width="24"
+                                         Height="24"
                            Grid.Row="0"
                            Grid.Column="2" />
 
                 <ComboBox  materialDesign:HintAssist.Hint="Timetable"
                            HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
                            Grid.Row="0"
                            Grid.Column="3" ItemsSource="{Binding WhenNotActiveEnumValues}"
-                           SelectedItem="{Binding SelectedWhenNotActiveEnum}">
-                </ComboBox>
+                           SelectedItem="{Binding SelectedWhenNotActiveEnum}" />
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Palimpset and Player"
+        <GroupBox Header="Palimpset and Player" Margin="5"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
                   Grid.Row="1"

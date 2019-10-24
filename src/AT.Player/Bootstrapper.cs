@@ -4,7 +4,8 @@ using StyletIoC;
 using AT.Player.Pages;
 using AT.Player.Pages.Settings;
 using AT.Player.Pages.Monitors;
-using AT.Player.Service;
+
+//using AT.Player.Service;
 using AT.Player.Configuration;
 using NLog;
 
@@ -81,7 +82,7 @@ namespace AT.Player
             builder.Autobind();
             //builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
             //builder.Bind<IMonitorSettingViewModelFactory>().ToAbstractFactory();
-            builder.Bind<IPreferenceService>().ToInstance(new PreferenceService());
+            //builder.Bind<IPreferenceService>().ToInstance(new PreferenceService());
             builder.Bind<IContext>().ToInstance(new Context());
         }
 

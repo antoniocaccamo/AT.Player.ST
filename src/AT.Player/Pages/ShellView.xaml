@@ -6,12 +6,17 @@
         xmlns:s="https://github.com/canton7/Stylet"
         xmlns:local="clr-namespace:AT.Player.Pages"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         d:DataContext="{d:DesignInstance local:ShellViewModel}"
         Title="AT.Player" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}">
 
     <DockPanel>
 
         <ContentControl DockPanel.Dock="Top" s:View.Model="{Binding Taskbar}" />
+
+        <materialDesign:Snackbar DockPanel.Dock="Bottom" MessageQueue="{Binding SnackbarMessageQueue}" />
 
         <TabControl Style="{StaticResource StyletConductorTabControl}" />
     </DockPanel>

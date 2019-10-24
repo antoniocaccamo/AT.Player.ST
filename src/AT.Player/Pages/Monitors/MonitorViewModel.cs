@@ -1,11 +1,12 @@
 ﻿namespace AT.Player.Pages.Monitors
 {
+    using System;
+    using System.ComponentModel;
     using AT.Player.Configuration;
     using AT.Player.Events;
     using Stylet;
 
     /// <summary>
-    ///
     /// </summary>
     public class MonitorViewModel : Conductor<IScreen>.StackNavigation, IHandle<MonitorShowVideoEvent>, IHandle<MonitorShowImageEvent>
     {
@@ -24,7 +25,6 @@
         #region Public Constructors
 
         /// <summary>
-        ///
         /// </summary>
         /// <param name="events"></param>
         /// <param name="channel"></param>
@@ -42,11 +42,21 @@
             _events.Subscribe(this, channel);
         }
 
+        internal void FireProgressChanged(ProgressChangedEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Public Constructors
 
         #region Public Properties
 
         public Configuration.Monitor Monitor => _monitor;
+
+        internal void RequestNext()
+        {
+            throw new NotImplementedException();
+        }
 
         //public double Height
         //{
@@ -82,6 +92,8 @@
 
             _video.Source = message.Source;
             this.ActivateItem(_video);
+
+            _events.Publish(new SnackBarEvent() { Message = $"showing media {message.Source}" });
         }
 
         void IHandle<MonitorShowImageEvent>.Handle(MonitorShowImageEvent message)

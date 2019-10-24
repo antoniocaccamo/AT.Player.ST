@@ -2,16 +2,18 @@
 {
     using AT.Player.Configuration;
     using AT.Player.Events;
+    using AT.Player.Helpers;
     using AT.Player.Pages.Settings;
-    using AT.Player.Service;
+
+    //using AT.Player.Service;
     using Stylet;
 
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive
+    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IHandle<Events.SnackBarEvent>
     {
         #region Private Fields
 
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
-        private readonly IPreferenceService _configurationService;
+        //private readonly IPreferenceService _configurationService;
 
         private readonly MonitorGroupSettingViewModel _monitorGroup;
         private readonly SequenceGroupSettingViewModel _sequenceGroup;
@@ -23,7 +25,7 @@
 
         #region Public Constructors
 
-        public ShellViewModel(IEventAggregator events, IPreferenceService configurationService, IContext context,
+        public ShellViewModel(IEventAggregator events, /*IPreferenceService configurationService,*/ IContext context,
             TaskbarViewModel taskbarViewModel,
             MonitorGroupSettingViewModel monitorGroupViewModel, SequenceGroupSettingViewModel sequenceGroupViewModel, WeatherSettingViewModel weatherViewModel)
         {
@@ -33,19 +35,25 @@
             this._sequenceGroup = sequenceGroupViewModel;
             this._weather = weatherViewModel;
 
-            this._configurationService = configurationService;
+            //this._configurationService = configurationService;
             this._context = context;
 
             Items.Add(_monitorGroup);
             Items.Add(_sequenceGroup);
             Items.Add(_weather);
 
-            this.ActivateItem(_weather);
+            this.ActivateItem(_monitorGroup);
+
+            SnackbarMessageQueue = new MaterialDesignThemes.Wpf.SnackbarMessageQueue();
+
+            events.Subscribe(this);
         }
 
         #endregion Public Constructors
 
         #region Public Properties
+
+        public MaterialDesignThemes.Wpf.ISnackbarMessageQueue SnackbarMessageQueue { get; private set; }
 
         public double Height
         {
@@ -75,13 +83,11 @@
 
         #endregion Public Properties
 
-
-
         #region Protected Methods
 
         protected override void OnClose()
         {
-            _configurationService.Save(_context.Configuration);
+            PreferenceHelper.Save(_context.Configuration);
             base.OnClose();
         }
 
@@ -90,10 +96,15 @@
             base.OnInitialActivate();
             _logger.Info("reading configuration...");
             _context.Configuration =
-                _configurationService.Get();
+                PreferenceHelper.Get();
 
             _logger.Info("Top {}", Top);
             _logger.Info("Left {}", Left);
+        }
+
+        void IHandle<SnackBarEvent>.Handle(SnackBarEvent message)
+        {
+            SnackbarMessageQueue.Enqueue(message.Message);
         }
 
         #endregion Protected Methods

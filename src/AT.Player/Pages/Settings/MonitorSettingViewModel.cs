@@ -1,7 +1,9 @@
 ﻿namespace AT.Player.Pages.Settings
 {
+    using AT.Player.Helpers;
     using AT.Player.Model;
-    using AT.Player.Service;
+
+    //using AT.Player.Service;
     using Stylet;
 
     public class MonitorSettingViewModel : Screen
@@ -37,7 +39,9 @@
         private LabelledValue<Configuration.Activation.ActivationEnum> _selectedActivationEnum;
         private LabelledValue<Configuration.Activation.WhenNotActiveEnum> _selectedWhenNotActiveEnum;
 
-        private PalimpsestService _palimpsestService = new PalimpsestService();
+        //private PalimpsestService _palimpsestService = new PalimpsestService();
+
+        private readonly PalimpsestLooper _palimpsestLooper;
 
         #endregion Private Fields
 
@@ -55,6 +59,8 @@
 
             _selectedActivationEnum = LabelledValue.Create(_monitor.Activation.Type.ToString(), _monitor.Activation.Type);
             _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
+
+            _palimpsestLooper = new PalimpsestLooper();
         }
 
         #endregion Public Constructors
@@ -123,10 +129,12 @@
                 new Monitors.MonitorViewModel(_events, _channel, _monitor);
             this._windowManager.ShowWindow(_monitorVM);
 
-            Palimpsest palimpsest = //_palimpsestService.GetAsync(_monitor.Sequence).Result
-                _palimpsestService.Get(_monitor.Sequence);
+            var palimpsest = //_palimpsestService.GetAsync(_monitor.Sequence).Result
+                 PalimpsestHelper.Get(_monitor.Sequence);
 
             _logger.Info("palimpsest : {0}", palimpsest);
+
+            _palimpsestLooper.Palimpsest = palimpsest;
         }
 
         #endregion Protected Methods

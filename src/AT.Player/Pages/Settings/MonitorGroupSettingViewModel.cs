@@ -53,17 +53,17 @@ namespace AT.Player.Pages.Settings
                     mnt++;
                     this.ActivateItem(Items[0]);
 
-                    _logger.Warn("###### send evts");
+                    //_logger.Warn("###### send evts");
 
-                    mnt = 1;
-                    channel = $"monitor #{mnt}";
-                    var evti = new Events.MonitorShowImageEvent() { Source = new System.Uri(_context.Configuration.Dummy.Image) };
-                    _events.Publish(evti, channel);
+                    //mnt = 1;
+                    //channel = $"monitor #{mnt}";
+                    //var evti = new Events.MonitorShowImageEvent() { Source = new System.Uri(_context.Configuration.Dummy.Image) };
+                    //_events.Publish(evti, channel);
 
-                    mnt++;
-                    channel = $"monitor #{mnt}";
-                    var evtv = new Events.MonitorShowVideoEvent() { Source = new System.Uri(_context.Configuration.Dummy.Video) };
-                    _events.Publish(evtv, channel);
+                    //mnt++;
+                    //channel = $"monitor #{mnt}";
+                    //var evtv = new Events.MonitorShowVideoEvent() { Source = new System.Uri(_context.Configuration.Dummy.Video) };
+                    //_events.Publish(evtv, channel);
                 }
             }
         }

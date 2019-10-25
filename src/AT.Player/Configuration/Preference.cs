@@ -13,7 +13,7 @@
 
         public Location Location { get; set; }
 
-        public Dummy Dummy { get; set; }
+        //public Dummy Dummy { get; set; }
 
         public BindableCollection<Monitor> Monitors { get; set; }
 

@@ -8,7 +8,7 @@
 
     /// <summary>
     /// </summary>
-    public class MonitorViewModel : Conductor<IScreen>.StackNavigation, IHandle<MonitorShowVideoEvent>, IHandle<MonitorShowImageEvent>
+    public class MonitorViewModel : Conductor<IScreen>.StackNavigation, IHandle<MonitorShowMediaEvent>
     {
         #region Private Fields
 
@@ -36,8 +36,8 @@
             this._monitor = monitor;
             DisplayName = channel;
 
-            this._video = new VideoViewModel();
-            this._image = new ImageViewModel();
+            this._video = new VideoViewModel(_channel);
+            this._image = new ImageViewModel(_channel);
 
             _events.Subscribe(this, channel);
         }
@@ -86,22 +86,34 @@
 
         #region Public Methods
 
-        void IHandle<MonitorShowVideoEvent>.Handle(MonitorShowVideoEvent message)
+        void IHandle<MonitorShowMediaEvent>.Handle(MonitorShowMediaEvent evt)
         {
-            _logger.Info("receveid msg {0}", message.Source);
+            _logger.Info("{0} : receveid MonitorShowMediaEvent : {1}", _channel, evt);
 
-            _video.Source = message.Source;
-            this.ActivateItem(_video);
+            try
+            {
+                Uri source;
+                //IScreen screen = null;
+                switch (evt.Media.Type)
+                {
+                    case Model.Media.MediaTypeEnum.VIDEO:
+                        source = new Uri(evt.Media.LocalFile);
+                        _video.Source = source;
+                        this.ActivateItem(_video);
+                        break;
 
-            _events.Publish(new SnackBarEvent() { Message = $"showing media {message.Source}" });
-        }
-
-        void IHandle<MonitorShowImageEvent>.Handle(MonitorShowImageEvent message)
-        {
-            _logger.Info("receveid msg {0}", message.Source);
-
-            _image.Source = message.Source;
-            this.ActivateItem(_image);
+                    case Model.Media.MediaTypeEnum.IMAGE:
+                        source = new Uri(evt.Media.LocalFile);
+                        _image.Source = source;
+                        this.ActivateItem(_image);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "error occurred");
+                this._events.Publish(new MonitorShowMediaErrorEvent(evt.Media), _channel);
+            }
         }
 
         #endregion Public Methods

@@ -1,4 +1,5 @@
-﻿using AT.Player.Pages.Settings;
+﻿using AT.Player.Configuration;
+using AT.Player.Pages.Settings;
 using System;
 
 namespace AT.Player.Callbacks
@@ -6,6 +7,8 @@ namespace AT.Player.Callbacks
     public class MonitorSettingTimingCallback : ITimingCallback
     {
         #region Private Fields
+
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         private readonly MonitorSettingViewModel _vm;
 
@@ -18,9 +21,24 @@ namespace AT.Player.Callbacks
 
         public void timingCallBack(object obj)
         {
-            //Log.Debug(
-            //    $"Index [{_settingViewModel.Index}] SettingStatus.RUNNING [{_settingViewModel.Setting.Status.Equals(SettingStatusEnum.RUNNING)}] " +
-            //    $"SettingStatus [{_settingViewModel.Setting.Status}] Setting.Activation [{_settingViewModel.Setting.Activation}] ");
+            _logger.Debug(
+                "Monitor.DisplayName [{0}] Monitor.MonitorStatus.PLAYING ? [{1}] Monitor.MonitorStatus [{2}] Setting.Activation [{3}] ",
+                _vm.DisplayName, MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_vm.MonitorStatus),
+                _vm.MonitorStatus, _vm.Monitor.Activation
+                );
+
+            switch (_vm.Monitor.Activation.Type)
+            {
+                case Activation.ActivationEnum.TIMED:
+                    break;
+
+                case Activation.ActivationEnum.ALLDAY:
+                    if (!MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_vm.MonitorStatus))
+                    {
+                        _vm.DoPlay();
+                    }
+                    break;
+            }
 
             if (Configuration.Activation.ActivationEnum.ALLDAY.Equals(_vm.Monitor.Activation.Type))
             {

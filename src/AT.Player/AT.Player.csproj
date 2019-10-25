@@ -80,6 +80,8 @@
     <Compile Include="Configuration\Activation.cs" />
     <Compile Include="Configuration\Context.cs" />
     <Compile Include="Configuration\IContext.cs" />
+    <Compile Include="Events\MonitorShowMediaErrorEvent.cs" />
+    <Compile Include="Events\MonitorShowMediaEvent.cs" />
     <Compile Include="Events\SnackBarEvent.cs" />
     <Compile Include="Helpers\PalimpsestHelper.cs" />
     <Compile Include="Helpers\PreferenceHelper.cs" />
@@ -95,6 +97,9 @@
     <Compile Include="Model\Media.cs" />
     <Compile Include="Model\Palimpsest.cs" />
     <Compile Include="Pages\Monitors\AbstractMonitorViewModel.cs" />
+    <Compile Include="Pages\Monitors\VideoView.xaml.cs">
+      <DependentUpon>VideoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\TaskbarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +171,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Monitors\VideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Settings\SequenceGroupSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,10 +202,6 @@
     <Page Include="Pages\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Monitors\VideoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

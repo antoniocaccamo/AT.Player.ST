@@ -17,7 +17,10 @@
                            LoadedBehavior="Play"
                            Stretch="Fill"
                            Source="{Binding Source}"
+                           BorderThickness="2" BorderBrush="DarkRed"
                            MediaFailed="{s:Action MediaElement_MediaFailed}"
-                            BorderThickness="2" BorderBrush="DarkRed" />
+                           MediaOpened="{s:Action MediaElement_MediaOpened}"
+                           PositionChanged="{s:Action MediaElement_PositionChanged}"
+                           MediaEnded="{s:Action MediaElement_MediaEnded}" />
     </Grid>
 </UserControl>

@@ -29,8 +29,8 @@ namespace AT.Player.Model
 
         public string RemoteFile { get; set; }
 
-        [YamlIgnore]
-        public PalimpsestStatusEnum Status { get; set; }
+        //[YamlIgnore]
+        //public PalimpsestStatusEnum Status { get; set; }
 
         #endregion Public Properties
 
@@ -44,14 +44,14 @@ namespace AT.Player.Model
             {
                 iem.Current.PostConstruct();
             }
-            Status = PalimpsestStatusEnum.NOT_ACTIVE;
+            //Status = PalimpsestStatusEnum.NOT_ACTIVE;
         }
 
         #endregion Public Methods
 
-        public enum PalimpsestStatusEnum
-        {
-            NOT_ACTIVE, STOPPED, PLAYING, PAUSED
-        };
+        //public enum PalimpsestStatusEnum
+        //{
+        //    NOT_ACTIVE, STOPPED, PLAYING, PAUSED
+        //};
     }
 }

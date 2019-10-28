@@ -5,10 +5,10 @@ dummy:
 computer: antonio
 size:
     width: 401
-    height: 350
+    height: 550
 location:
-    top: 542
-    left: 243        
+    top: 0
+    left: 25        
 weather:
     latlng: "45.08,7.40"
     refresh: 180

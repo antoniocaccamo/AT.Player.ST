@@ -62,18 +62,20 @@
 
         #region Public Constructors
 
-        public MonitorSettingViewModel(IWindowManager windowManager, IEventAggregator events, string channel, Configuration.Monitor monitor)
+        public MonitorSettingViewModel(IWindowManager windowManager, IEventAggregator events
+            //, string channel, Configuration.Monitor monitor
+            )
         {
             this._windowManager = windowManager;
             this._events = events;
-            this._channel = channel;
-            this._monitor = monitor;
+            //this._channel = channel;
+            //this._monitor = monitor;
 
             DisplayName = "Monitor Manager";
             _logger.Warn("###### " + DisplayName);
 
-            _selectedActivationEnum = LabelledValue.Create(_monitor.Activation.Type.ToString(), _monitor.Activation.Type);
-            _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
+            _selectedActivationEnum = LabelledValue.Create(_monitor?.Activation.Type.ToString(), _monitor.Activation.Type);
+            _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor?.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
 
             _monitorStatus = MonitorStatusEnum.NOT_ACTIVE;
             _palimpsestLooper = new PalimpsestLooper();
@@ -184,7 +186,7 @@
         protected override void OnClose()
         {
             _logger.Info("_monitorVM.RequestClose() ...");
-            _monitorVM.RequestClose();
+            _monitorVM?.RequestClose();
             base.OnClose();
         }
 
@@ -201,7 +203,9 @@
         {
             _monitorVM = // _monitorViewModelFactory.CreateMonitorViewModel(this._channel);
                 new Monitors.MonitorViewModel(_events, _channel, _monitor);
-            this._windowManager.ShowWindow(_monitorVM);
+            Execute.OnUIThreadAsync( 
+                new Action( ()=> this._windowManager.ShowWindow(_monitorVM))
+                );
 
             if (!string.IsNullOrEmpty(_monitor.Sequence))
             {
@@ -223,7 +227,9 @@
 
         private void ShowMedia()
         {
-            this._events.PublishOnUIThread(new Events.MonitorShowMediaEvent(CurrentMedia), _channel);
+            Execute.Dispatcher.Post (new Action(
+                () => _events.Publish(new Events.MonitorShowMediaEvent(CurrentMedia), _channel)));
+            //this._events.PublishOnUIThread(new Events.MonitorShowMediaEvent(CurrentMedia), _channel);
         }
 
         void IHandle<MonitorShowMediaErrorEvent>.Handle(MonitorShowMediaErrorEvent evt)

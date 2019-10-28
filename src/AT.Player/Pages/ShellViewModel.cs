@@ -8,7 +8,7 @@
     //using AT.Player.Service;
     using Stylet;
 
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IHandle<Events.SnackBarEvent>
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IHandle<Events.SnackBarEvent>
     {
         #region Private Fields
 

@@ -19,17 +19,17 @@ namespace AT.Player.Pages.Monitors
             _logger.Error($"{_channel} : error playing video : {e.ErrorException}");
         }
 
-        private void MediaElement_MediaOpened(object sender, Unosquare.FFME.Common.MediaOpenedEventArgs e)
+        public void MediaElement_MediaOpened(object sender, Unosquare.FFME.Common.MediaOpenedEventArgs e)
         {
             _logger.Info($" {_channel} : media opened : {e.Info.MediaSource} Duration : {e.Info.Duration}");
         }
 
-        private void MediaElement_MediaEnded(object sender, EventArgs e)
+        public void MediaElement_MediaEnded(object sender, EventArgs e)
         {
             _logger.Info($" {_channel} : media endend : sender  {sender}");
         }
 
-        private void MediaElement_PositionChanged(object sender, Unosquare.FFME.Common.PositionChangedEventArgs e)
+        public void MediaElement_PositionChanged(object sender, Unosquare.FFME.Common.PositionChangedEventArgs e)
         {
             _logger.Info($"{_channel} :  PositionChanged {e.Position} sender {sender}");
         }

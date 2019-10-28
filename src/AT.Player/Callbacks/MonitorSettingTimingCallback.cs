@@ -1,5 +1,6 @@
 ﻿using AT.Player.Configuration;
 using AT.Player.Pages.Settings;
+using Stylet;
 using System;
 
 namespace AT.Player.Callbacks
@@ -35,7 +36,8 @@ namespace AT.Player.Callbacks
                 case Activation.ActivationEnum.ALLDAY:
                     if (!MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_vm.MonitorStatus))
                     {
-                        _vm.DoPlay();
+                        Execute.OnUIThreadAsync(new Action(()=> _vm.DoPlay()));
+                        
                     }
                     break;
             }

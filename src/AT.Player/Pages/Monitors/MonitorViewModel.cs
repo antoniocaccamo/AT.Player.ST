@@ -24,6 +24,12 @@
 
         #region Public Constructors
 
+        public MonitorViewModel(IEventAggregator events)
+        {
+            this._events = events;
+
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="events"></param>
@@ -98,7 +104,8 @@
                 {
                     case Model.Media.MediaTypeEnum.VIDEO:
                         source = new Uri(evt.Media.LocalFile);
-                        _video.Source = source;
+                        Execute.OnUIThreadAsync(new Action(() => _video.Source = source));
+;                       // _video.Source = source;
                         this.ActivateItem(_video);
                         break;
 

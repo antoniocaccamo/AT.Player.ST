@@ -1,4 +1,5 @@
 ﻿using AT.Player.Configuration;
+using AT.Player.Pages.Monitors;
 using Stylet;
 
 namespace AT.Player.Pages.Settings
@@ -45,8 +46,9 @@ namespace AT.Player.Pages.Settings
                     var channel = $"monitor #{mnt}";
                     MonitorSettingViewModel m =
                         // monitorSettingViewModelFactory.CreateMonitorSettingViewModel(channel, _monitor)
-                        new MonitorSettingViewModel(_windowManager, _events, channel, _monitor)
+                        new MonitorSettingViewModel(_windowManager, _events)
                     ;
+                    MonitorViewModel mvm = new MonitorViewModel(_events);
                     m.DisplayName += $" | {channel}";
 
                     Items.Add(m);

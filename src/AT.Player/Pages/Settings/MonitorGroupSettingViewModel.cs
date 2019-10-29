@@ -4,7 +4,7 @@ using Stylet;
 
 namespace AT.Player.Pages.Settings
 {
-    public class MonitorGroupSettingViewModel : Conductor<IScreen>.Collection.AllActive
+    public class MonitorGroupSettingViewModel : Conductor<IScreen>.Collection.OneActive
     {
         #region Private Fields
 
@@ -15,12 +15,12 @@ namespace AT.Player.Pages.Settings
 
         #endregion Private Fields
 
-        //private readonly IMonitorSettingViewModelFactory monitorSettingViewModelFactory;
+        private readonly IMonitorViewModelFactory _factory;
 
         #region Public Constructors
 
         public MonitorGroupSettingViewModel(IWindowManager windowManager, IEventAggregator events, IContext context
-            //7IMonitorSettingViewModelFactory monitorSettingViewModelFactory
+            , IMonitorViewModelFactory factory
             )
         {
             DisplayName = "Monitors Manager";
@@ -28,7 +28,7 @@ namespace AT.Player.Pages.Settings
             this._windowManager = windowManager;
             this._events = events;
             this._context = context;
-            //this.monitorSettingViewModelFactory = monitorSettingViewModelFactory;
+            this._factory = factory;
         }
 
         #endregion Public Constructors
@@ -41,19 +41,19 @@ namespace AT.Player.Pages.Settings
             using (_context)
             {
                 uint mnt = 1;
-                foreach (Configuration.Monitor _monitor in _context.Configuration.Monitors)
+                foreach (var _monitor in _context.Configuration.Monitors)
                 {
-                    var channel = $"monitor #{mnt}";
-                    MonitorSettingViewModel m =
-                        // monitorSettingViewModelFactory.CreateMonitorSettingViewModel(channel, _monitor)
-                        new MonitorSettingViewModel(_windowManager, _events)
-                    ;
-                    MonitorViewModel mvm = new MonitorViewModel(_events);
-                    m.DisplayName += $" | {channel}";
+                    var _channel = $"monitor #{mnt}";
+                    MonitorSettingViewModel _msvm = _factory.CreateMonitorSettingViewModel();
+                    //MonitorViewModel mvm = new MonitorViewModel(_events);
+                    _msvm.DisplayName += $" | {_channel}";
+                    _msvm.ChannelAndMonitor(_channel, _monitor);
 
-                    Items.Add(m);
+                    Items.Add(_msvm);
                     mnt++;
-                    this.ActivateItem(Items[0]);
+                    this.ActivateItem(_msvm);
+
+                    _msvm.ShowMonitorAsync();
 
                     //_logger.Warn("###### send evts");
 

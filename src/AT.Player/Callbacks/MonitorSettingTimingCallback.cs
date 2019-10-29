@@ -22,6 +22,11 @@ namespace AT.Player.Callbacks
 
         public void timingCallBack(object obj)
         {
+            if (_vm.Monitor == null)
+            {
+                return;
+            }
+
             _logger.Debug(
                 "Monitor.DisplayName [{0}] Monitor.MonitorStatus.PLAYING ? [{1}] Monitor.MonitorStatus [{2}] Setting.Activation [{3}] ",
                 _vm.DisplayName, MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_vm.MonitorStatus),
@@ -36,8 +41,7 @@ namespace AT.Player.Callbacks
                 case Activation.ActivationEnum.ALLDAY:
                     if (!MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_vm.MonitorStatus))
                     {
-                        Execute.OnUIThreadAsync(new Action(()=> _vm.DoPlay()));
-                        
+                        Execute.OnUIThreadAsync(new Action(() => _vm.DoPlay()));
                     }
                     break;
             }

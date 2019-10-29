@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace AT.Player.Pages.Monitors
 {
@@ -14,24 +11,39 @@ namespace AT.Player.Pages.Monitors
         {
         }
 
-        public void MediaElement_MediaFailed(object sender, Unosquare.FFME.Common.MediaFailedEventArgs e)
+        public void MediaElement_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
             _logger.Error($"{_channel} : error playing video : {e.ErrorException}");
         }
 
-        public void MediaElement_MediaOpened(object sender, Unosquare.FFME.Common.MediaOpenedEventArgs e)
+        public void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
-            _logger.Info($" {_channel} : media opened : {e.Info.MediaSource} Duration : {e.Info.Duration}");
+            _logger.Info($" {_channel} : media opened ");
         }
 
-        public void MediaElement_MediaEnded(object sender, EventArgs e)
+        public void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
-            _logger.Info($" {_channel} : media endend : sender  {sender}");
+            _logger.Info($" {_channel} : media opened ");
         }
 
-        public void MediaElement_PositionChanged(object sender, Unosquare.FFME.Common.PositionChangedEventArgs e)
-        {
-            _logger.Info($"{_channel} :  PositionChanged {e.Position} sender {sender}");
-        }
+        //public void MediaElement_MediaFailed(object sender, Unosquare.FFME.Common.MediaFailedEventArgs e)
+        //{
+        //    _logger.Error($"{_channel} : error playing video : {e.ErrorException}");
+        //}
+
+        //public void MediaElement_MediaOpened(object sender, Unosquare.FFME.Common.MediaOpenedEventArgs e)
+        //{
+        //    _logger.Info($" {_channel} : media opened : {e.Info.MediaSource} Duration : {e.Info.Duration}");
+        //}
+
+        //public void MediaElement_MediaEnded(object sender, EventArgs e)
+        //{
+        //    _logger.Info($" {_channel} : media endend : sender  {sender}");
+        //}
+
+        //public void MediaElement_PositionChanged(object sender, Unosquare.FFME.Common.PositionChangedEventArgs e)
+        //{
+        //    _logger.Info($"{_channel} :  PositionChanged {e.Position} sender {sender}");
+        //}
     }
 }

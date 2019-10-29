@@ -8,7 +8,7 @@
          Height="{Binding Monitor.Size.Height, Mode=TwoWay}" Width="{Binding Monitor.Size.Width, Mode=TwoWay}" Top="{Binding Monitor.Location.Top, Mode=TwoWay}" Left="{Binding Monitor.Location.Left, Mode=TwoWay}"
              d:DesignHeight="450" d:DesignWidth="800" Topmost="True" WindowStyle="None"
     AllowsTransparency="True"
-    ResizeMode="CanResizeWithGrip" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+    ResizeMode="CanResizeWithGrip" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Black">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />

@@ -14,9 +14,9 @@
 
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private readonly string _channel;
+        private string _channel;
         private readonly IEventAggregator _events;
-        private readonly Monitor _monitor;
+        private Monitor _monitor;
         private ImageViewModel _image;
         private VideoViewModel _video;
 
@@ -27,17 +27,10 @@
         public MonitorViewModel(IEventAggregator events)
         {
             this._events = events;
-
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="events"></param>
-        /// <param name="channel"></param>
-        /// <param name="monitor"></param>
-        public MonitorViewModel(IEventAggregator events, string channel, Monitor monitor)
+        public void ChannelAndMonitor(string channel, Monitor monitor)
         {
-            this._events = events;
             this._channel = channel;
             this._monitor = monitor;
             DisplayName = channel;
@@ -105,7 +98,7 @@
                     case Model.Media.MediaTypeEnum.VIDEO:
                         source = new Uri(evt.Media.LocalFile);
                         Execute.OnUIThreadAsync(new Action(() => _video.Source = source));
-;                       // _video.Source = source;
+                        ;                       // _video.Source = source;
                         this.ActivateItem(_video);
                         break;
 

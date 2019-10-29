@@ -25,7 +25,7 @@
 
         #region Public Constructors
 
-        public ShellViewModel(IEventAggregator events, /*IPreferenceService configurationService,*/ IContext context,
+        public ShellViewModel(IEventAggregator events,  /*IPreferenceService configurationService,*/ IContext context,
             TaskbarViewModel taskbarViewModel,
             MonitorGroupSettingViewModel monitorGroupViewModel, SequenceGroupSettingViewModel sequenceGroupViewModel, WeatherSettingViewModel weatherViewModel)
         {

@@ -23,6 +23,8 @@ namespace AT.Player.Helpers
         {
             try
             {
+                if (string.IsNullOrEmpty(file)) return null;
+
                 if (System.IO.File.Exists(file))
                 {
                     string yaml = System.IO.File.ReadAllText(file);
@@ -35,7 +37,7 @@ namespace AT.Player.Helpers
             {
                 _logger.Error(e, "error occurred");
             }
-            return new Palimpsest();
+            return null;
         }
 
         public static async Task<Palimpsest> GetAsync(string file) => await Task.Run(() => Get(file));

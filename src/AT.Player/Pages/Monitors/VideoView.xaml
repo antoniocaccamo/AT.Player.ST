@@ -11,6 +11,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+
+        <MediaElement
+            VerticalAlignment="Stretch"
+                           LoadedBehavior="Play"
+                           Stretch="Fill"
+                           Source="{Binding Source}"
+                           MediaFailed="{s:Action MediaElement_MediaFailed}"
+                           MediaOpened="{s:Action MediaElement_MediaOpened}"
+                           MediaEnded="{s:Action MediaElement_MediaEnded}" />
+        <!--
         <ffme:MediaElement x:Name="MediaElement"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
@@ -22,5 +32,6 @@
                            MediaOpened="{s:Action MediaElement_MediaOpened}"
                            PositionChanged="{s:Action MediaElement_PositionChanged}"
                            MediaEnded="{s:Action MediaElement_MediaEnded}" />
+        -->
     </Grid>
 </UserControl>

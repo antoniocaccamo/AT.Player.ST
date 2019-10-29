@@ -4,6 +4,7 @@
     using AT.Player.Events;
     using AT.Player.Helpers;
     using AT.Player.Model;
+    using AT.Player.Pages.Monitors;
 
     //using AT.Player.Service;
     using Stylet;
@@ -32,11 +33,11 @@
                 LabelledValue.Create(Configuration.Activation.WhenNotActiveEnum.WATCH.ToString(), Configuration.Activation.WhenNotActiveEnum.WATCH)
             };
 
-        private readonly string _channel;
+        private string _channel;
 
         private readonly IEventAggregator _events;
 
-        private readonly Configuration.Monitor _monitor;
+        private Configuration.Monitor _monitor;
 
         private readonly PalimpsestLooper _palimpsestLooper;
 
@@ -49,33 +50,28 @@
 
         private MonitorStatusEnum _monitorStatus;
 
-        private Monitors.MonitorViewModel _monitorVM;
+        private Monitors.MonitorViewModel _monitorViewModel;
 
         private LabelledValue<Configuration.Activation.ActivationEnum> _selectedActivationEnum;
 
         private LabelledValue<Configuration.Activation.WhenNotActiveEnum> _selectedWhenNotActiveEnum;
 
-        //private PalimpsestService _palimpsestService = new PalimpsestService();
         private Timer _timer;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public MonitorSettingViewModel(IWindowManager windowManager, IEventAggregator events
-            //, string channel, Configuration.Monitor monitor
-            )
+        public MonitorSettingViewModel(IWindowManager windowManager, IEventAggregator events, MonitorViewModel monitorViewModel)
         {
             this._windowManager = windowManager;
             this._events = events;
+            this._monitorViewModel = monitorViewModel;
             //this._channel = channel;
             //this._monitor = monitor;
 
             DisplayName = "Monitor Manager";
             _logger.Warn("###### " + DisplayName);
-
-            _selectedActivationEnum = LabelledValue.Create(_monitor?.Activation.Type.ToString(), _monitor.Activation.Type);
-            _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor?.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
 
             _monitorStatus = MonitorStatusEnum.NOT_ACTIVE;
             _palimpsestLooper = new PalimpsestLooper();
@@ -107,22 +103,12 @@
 
         Palimpsest Palimpsest => _palimpsestLooper.Palimpsest;
 
-        //public double Left
-        //{
-        //    get => _monitor.Location.Left;
-        //    set => _monitor.Location.Left = value;
-        //}
         public LabelledValue<Configuration.Activation.ActivationEnum> SelectedActivationEnum
         {
             get => _selectedActivationEnum;
             set { _selectedActivationEnum = value; _monitor.Activation.Type = value.Value; }
         }
 
-        //public double Height
-        //{
-        //    get => _monitor.Size.Height;
-        //    set => _monitor.Size.Height = value;
-        //}
         public LabelledValue<Configuration.Activation.WhenNotActiveEnum> SelectedWhenNotActiveEnum
         {
             get => _selectedWhenNotActiveEnum;
@@ -134,6 +120,21 @@
         #endregion Public Properties
 
         #region Public Methods
+
+        public void ChannelAndMonitor(string channel, Configuration.Monitor monitor)
+        {
+            this._channel = channel;
+            this._monitor = monitor;
+            this._monitorViewModel.ChannelAndMonitor(_channel, _monitor);
+            _selectedActivationEnum = LabelledValue.Create(_monitor.Activation.Type.ToString(), _monitor.Activation.Type);
+            _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
+
+            var palimpsest = PalimpsestHelper.Get(_monitor?.Sequence);
+            if (palimpsest != null)
+            {
+                _palimpsestLooper.Palimpsest = palimpsest;
+            }
+        }
 
         public bool CanDoPlay()
         {
@@ -172,11 +173,14 @@
         {
             //_timer?.Dispose();
             //ProgressChanged(this, new ProgressChangedEventArgs(0, null));
-            CurrentMedia = _palimpsestLooper.Next;
-            _currentMediaStartDateTime = DateTime.Now;
-            _currentMediaPausedDateTime = DateTime.MinValue;
-            //_worker.RunWorkerAsync();
-            ShowMedia();
+            if (_palimpsestLooper.Palimpsest != null)
+            {
+                CurrentMedia = _palimpsestLooper.Next;
+                _currentMediaStartDateTime = DateTime.Now;
+                _currentMediaPausedDateTime = DateTime.MinValue;
+                //_worker.RunWorkerAsync();
+                ShowMedia();
+            }
         }
 
         #endregion Public Methods
@@ -186,39 +190,13 @@
         protected override void OnClose()
         {
             _logger.Info("_monitorVM.RequestClose() ...");
-            _monitorVM?.RequestClose();
+            _monitorViewModel?.RequestClose();
             base.OnClose();
         }
 
-        //public double Width
-        //{
-        //    get => _monitor.Size.Width;
-        //    set
-        //    {
-        //        _logger.Warn("width changed {0}", value);
-        //        _monitor.Size.Width = value;
-        //    }
-        //}
-        protected override void OnInitialActivate()
+        public async void ShowMonitorAsync()
         {
-            _monitorVM = // _monitorViewModelFactory.CreateMonitorViewModel(this._channel);
-                new Monitors.MonitorViewModel(_events, _channel, _monitor);
-            Execute.OnUIThreadAsync( 
-                new Action( ()=> this._windowManager.ShowWindow(_monitorVM))
-                );
-
-            if (!string.IsNullOrEmpty(_monitor.Sequence))
-            {
-                var palimpsest = //_palimpsestService.GetAsync(_monitor.Sequence).Result
-                    PalimpsestHelper.Get(_monitor.Sequence);
-
-                _logger.Info("palimpsest : {0}", palimpsest);
-                _palimpsestLooper.Palimpsest = palimpsest;
-
-                MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
-                TimerCallback tc = new TimerCallback(stc.timingCallBack);
-                _timer = new Timer(tc, null, 100, 500);
-            }
+            await Execute.OnUIThreadAsync(new Action(() => _windowManager.ShowWindow(this._monitorViewModel)));
         }
 
         #endregion Protected Methods
@@ -227,7 +205,7 @@
 
         private void ShowMedia()
         {
-            Execute.Dispatcher.Post (new Action(
+            Execute.Dispatcher.Post(new Action(
                 () => _events.Publish(new Events.MonitorShowMediaEvent(CurrentMedia), _channel)));
             //this._events.PublishOnUIThread(new Events.MonitorShowMediaEvent(CurrentMedia), _channel);
         }
@@ -245,5 +223,12 @@
         //    get => _monitor.Location.Top;
         //    set => _monitor.Location.Top = value;
         //}
+
+        protected override void OnInitialActivate()
+        {
+            MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
+            TimerCallback tc = new TimerCallback(stc.timingCallBack);
+            _timer = new Timer(tc, null, 100, 500);
+        }
     }
 }

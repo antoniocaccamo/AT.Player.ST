@@ -11,28 +11,13 @@ using NLog;
 
 namespace AT.Player
 {
-    public interface IMonitorSettingViewModelFactory
-    {
-        #region Public Methods
-
-        /// <summary>
-        /// </summary>
-        /// <param name="channel"></param>
-        /// <returns></returns>
-        MonitorSettingViewModel CreateMonitorSettingViewModel(string channel, Monitor monitor);
-
-        #endregion Public Methods
-    }
-
     public interface IMonitorViewModelFactory
     {
         #region Public Methods
 
-        /// <summary>
-        /// </summary>
-        /// <param name="channel"></param>
-        /// <returns></returns>
-        MonitorViewModel CreateMonitorViewModel(string channel, Monitor monitor);
+        MonitorSettingViewModel CreateMonitorSettingViewModel();
+
+        MonitorViewModel CreateMonitorViewModel();
 
         #endregion Public Methods
     }
@@ -72,17 +57,15 @@ namespace AT.Player
                 System.IO.Directory.Exists(Unosquare.FFME.Library.FFmpegDirectory)
             );
 
-            Unosquare.FFME.Library.LoadFFmpeg();
             Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
+            Unosquare.FFME.Library.LoadFFmpeg();
         }
 
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             base.ConfigureIoC(builder);
             builder.Autobind();
-            //builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
-            //builder.Bind<IMonitorSettingViewModelFactory>().ToAbstractFactory();
-            //builder.Bind<IPreferenceService>().ToInstance(new PreferenceService());
+            builder.Bind<IMonitorViewModelFactory>().ToAbstractFactory();
             builder.Bind<IContext>().ToInstance(new Context());
         }
 

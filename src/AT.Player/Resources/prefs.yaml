@@ -8,7 +8,7 @@ size:
     height: 550
 location:
     top: 30
-    left: 25        
+    left: 1025        
 weather:
     latlng: "45.08,7.40"
     refresh: 180
@@ -34,6 +34,17 @@ monitors:
         location:
             top: 50
             left: 650
+        sequence: "C:\\development\\workspaces\\antoniocaccamo\\AT.Player.ST\\src\\AT.Player\\Resources\\sequence.01.yaml"
+        activation: 
+            type: ALLDAY            
+
+    -
+        size:
+            width: 368
+            height: 276
+        location:
+            top: 350
+            left: 250
         sequence: "C:\\development\\workspaces\\antoniocaccamo\\AT.Player.ST\\src\\AT.Player\\Resources\\sequence.01.yaml"
         activation: 
             type: ALLDAY            

@@ -8,8 +8,9 @@ namespace AT.Player.Pages.Monitors
 {
     public class ImageViewModel : AbstractMonitorViewModel
     {
-        public ImageViewModel(string channel) : base(channel)
-        {
-        }
+        //public ImageViewModel(string channel) : base(channel)
+        //{
+        //}
+        public ImageViewModel(Stylet.IEventAggregator events) : base(events) { }
     }
 }

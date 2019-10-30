@@ -28,7 +28,7 @@ namespace AT.Player.Helpers
                 if (System.IO.File.Exists(file))
                 {
                     string yaml = System.IO.File.ReadAllText(file);
-                    _logger.Info("yaml : {0}", yaml);
+                    _logger.Debug("yaml : {0}", yaml);
                     var palimpsest = _deserializer.Deserialize<Palimpsest>(yaml);
                     return palimpsest;
                 }

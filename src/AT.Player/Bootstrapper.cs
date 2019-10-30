@@ -36,29 +36,16 @@ namespace AT.Player
         {
             // Perform any other configuration before the application starts
 
-            var config = new NLog.Config.LoggingConfiguration();
+            //Unosquare.FFME.Library.FFmpegDirectory =
+            //    @"ffmpeg";
+            //// Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
+            //Logger.Info("Configure Unosquare.FFME.Library.FFmpegDirectory) [{0}] - Exists [{1}]",
+            //    Unosquare.FFME.Library.FFmpegDirectory,
+            //    System.IO.Directory.Exists(Unosquare.FFME.Library.FFmpegDirectory)
+            //);
 
-            // Targets where to log to: File and Console
-            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "logs/file.log" };
-            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
-
-            // Rules for mapping loggers to targets
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
-
-            // Apply config
-            NLog.LogManager.Configuration = config;
-
-            Unosquare.FFME.Library.FFmpegDirectory =
-                @"ffmpeg";
-            // Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
-            Logger.Info("Configure Unosquare.FFME.Library.FFmpegDirectory) [{0}] - Exists [{1}]",
-                Unosquare.FFME.Library.FFmpegDirectory,
-                System.IO.Directory.Exists(Unosquare.FFME.Library.FFmpegDirectory)
-            );
-
-            Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
-            Unosquare.FFME.Library.LoadFFmpeg();
+            //Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
+            //Unosquare.FFME.Library.LoadFFmpeg();
         }
 
         protected override void ConfigureIoC(IStyletIoCBuilder builder)

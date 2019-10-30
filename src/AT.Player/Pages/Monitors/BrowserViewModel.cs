@@ -8,7 +8,11 @@ namespace AT.Player.Pages.Monitors
 {
     public class BrowserViewModel : AbstractMonitorViewModel
     {
-        public BrowserViewModel(string channel) : base(channel)
+        //public BrowserViewModel(string channel) : base(channel)
+        //{
+        //}
+
+        public BrowserViewModel(Stylet.IEventAggregator events) : base(events)
         {
         }
     }

@@ -26,7 +26,7 @@ namespace AT.Player.Helpers
         public static Configuration.Preference Get()
         {
             string yaml = System.IO.File.ReadAllText(PREF_FILE);
-            _logger.Info("yaml : {0}", yaml);
+            _logger.Debug("yaml : {0}", yaml);
             var configuration = _deserializer.Deserialize<Configuration.Preference>(yaml);
             return configuration;
         }

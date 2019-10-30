@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AT.Player.Events
 {
     [ToString]
-    internal class MonitorShowMediaEvent : AbstractShowEvent
+    public class MonitorShowMediaEvent : AbstractShowEvent
     {
         #region Private Fields
 

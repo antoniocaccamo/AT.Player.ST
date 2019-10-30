@@ -41,7 +41,7 @@ namespace AT.Player.Callbacks
                 case Activation.ActivationEnum.ALLDAY:
                     if (!MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_vm.MonitorStatus))
                     {
-                        Execute.OnUIThreadAsync(new Action(() => _vm.DoPlay()));
+                        Execute.PostToUIThread(() => _vm.DoPlay());
                     }
                     break;
             }

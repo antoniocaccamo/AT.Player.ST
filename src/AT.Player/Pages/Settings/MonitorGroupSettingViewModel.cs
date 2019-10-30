@@ -53,7 +53,7 @@ namespace AT.Player.Pages.Settings
                     mnt++;
                     this.ActivateItem(_msvm);
 
-                    _msvm.ShowMonitorAsync();
+                    _msvm.ShowMonitor();
 
                     //_logger.Warn("###### send evts");
 

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AT.Player.Events
+﻿namespace AT.Player.Events
 {
-    public abstract class AbstractShowEvent
+    using System;
+
+    public abstract class AbstractShowEvent : EventArgs
     {
         public Uri Source { get; set; }
     }

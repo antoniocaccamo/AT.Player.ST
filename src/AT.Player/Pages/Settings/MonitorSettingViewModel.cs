@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Windows;
 
-    public class MonitorSettingViewModel : Screen, IHandle<Events.MonitorShowMediaErrorEvent>
+    public class MonitorSettingViewModel : Screen, IHandle<Events.MonitorShowMediaErrorEvent>, IHandle<MediaProgressChangeEvent>
     {
         #region Private Fields
 
@@ -79,6 +79,8 @@
 
         #endregion Public Constructors
 
+        public event MonitorShowMediaEvent CurrentMediaChanged;
+
         #region Public Enums
 
         public enum MonitorStatusEnum
@@ -117,6 +119,8 @@
 
         public BindableCollection<LabelledValue<Configuration.Activation.WhenNotActiveEnum>> WhenNotActiveEnumValues => _whenNotActiveEnum;
 
+        public int CurrentProgress { get; private set; }
+
         #endregion Public Properties
 
         #region Public Methods
@@ -134,6 +138,8 @@
             {
                 _palimpsestLooper.Palimpsest = palimpsest;
             }
+
+            this._events.Subscribe(this, _channel);
         }
 
         public bool CanDoPlay()
@@ -194,9 +200,9 @@
             base.OnClose();
         }
 
-        public async void ShowMonitorAsync()
+        public void ShowMonitor()
         {
-            await Execute.OnUIThreadAsync(new Action(() => _windowManager.ShowWindow(this._monitorViewModel)));
+            Execute.PostToUIThread(() => _windowManager.ShowWindow(this._monitorViewModel));
         }
 
         #endregion Protected Methods
@@ -205,8 +211,8 @@
 
         private void ShowMedia()
         {
-            Execute.Dispatcher.Post(new Action(
-                () => _events.Publish(new Events.MonitorShowMediaEvent(CurrentMedia), _channel)));
+            Execute.PostToUIThread(() => CurrentProgress = 0);
+            Execute.PostToUIThread(() => _events.Publish(new Events.MonitorShowMediaEvent(CurrentMedia), _channel));
             //this._events.PublishOnUIThread(new Events.MonitorShowMediaEvent(CurrentMedia), _channel);
         }
 
@@ -214,6 +220,12 @@
         {
             _logger.Error($"{_channel} : can't play media : {evt.Media}");
             Next();
+        }
+
+        void IHandle<MediaProgressChangeEvent>.Handle(MediaProgressChangeEvent evt)
+        {
+            _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
+            Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
         }
 
         #endregion Private Methods
@@ -229,6 +241,12 @@
             MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
             TimerCallback tc = new TimerCallback(stc.timingCallBack);
             _timer = new Timer(tc, null, 100, 500);
+
+            _monitorViewModel.ProgressChanged += (snd, evt) =>
+            {
+                _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
+                Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
+            };
         }
     }
 }

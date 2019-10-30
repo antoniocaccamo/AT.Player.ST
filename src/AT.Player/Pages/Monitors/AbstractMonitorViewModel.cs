@@ -5,13 +5,28 @@ namespace AT.Player.Pages.Monitors
 {
     public abstract class AbstractMonitorViewModel : Screen
     {
-        protected readonly string _channel;
+        #region Private Fields
 
-        public AbstractMonitorViewModel(string channel)
+        private string _channel;
+        protected readonly IEventAggregator _events;
+
+        protected AbstractMonitorViewModel(IEventAggregator events)
         {
-            _channel = channel;
+            _events = events;
         }
 
-        public Uri Source { get; set; }
+        #endregion Private Fields
+
+        #region Public Properties
+
+        public string Channel { get => _channel; set => _channel = value; }
+
+        public MonitorViewModel MonitorViewModel { get; set; }
+
+        //public IEventAggregator EventAggregator => _events;
+
+        public virtual Uri Source { get; set; }
+
+        #endregion Public Properties
     }
 }

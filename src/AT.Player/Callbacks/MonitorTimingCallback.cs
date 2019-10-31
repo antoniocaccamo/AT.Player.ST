@@ -36,9 +36,9 @@ namespace AT.Player.Callbacks
         {
             TimeSpan diff = DateTime.Now.Subtract(_startup);
             ProgressChangedEventArgs args = null;
-            if (diff.TotalSeconds < (int)_media.Duration)
+            if (diff.TotalSeconds < (int)_media.Duration.TotalSeconds)
             {
-                int progress = (int)(100 * diff.TotalSeconds / _media.Duration);
+                int progress = (int)(100 * diff.TotalSeconds / _media.Duration.TotalSeconds);
                 args = new ProgressChangedEventArgs(progress, null);
                 _pvm.FireProgressChanged(args);
             }
@@ -51,7 +51,7 @@ namespace AT.Player.Callbacks
                 autoEvent.Set();
                 if (!_media.isVideo)
                 {
-                    _pvm.RequestNext();
+                    _pvm.FireMediaEnded();
                 }
             }
         }

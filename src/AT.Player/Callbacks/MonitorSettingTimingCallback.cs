@@ -27,7 +27,7 @@ namespace AT.Player.Callbacks
         {
             try
             {
-                _logger.Info($"{_monitorSettingViewModel.Channel} : EnterUpgradeableReadLock ..");
+                _logger.Debug($"{_monitorSettingViewModel.Channel} : EnterUpgradeableReadLock ..");
                 _monitorSettingViewModel.ReaderWriterLock.EnterUpgradeableReadLock();
 
                 if (_monitorSettingViewModel.Monitor == null)
@@ -47,7 +47,7 @@ namespace AT.Player.Callbacks
                         break;
 
                     case Activation.ActivationEnum.ALLDAY:
-                        if (!MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(_monitorSettingViewModel.MonitorStatus))
+                        if (MonitorSettingViewModel.MonitorStatusEnum.NOT_ACTIVE.Equals(_monitorSettingViewModel.MonitorStatus))
                         {
                             _logger.Info($"{_monitorSettingViewModel.Channel} : EnterWriteLock ..");
                             _monitorSettingViewModel.ReaderWriterLock.EnterWriteLock();
@@ -98,13 +98,13 @@ namespace AT.Player.Callbacks
             {
                 if (_monitorSettingViewModel.ReaderWriterLock.IsWriteLockHeld)
                 {
-                    _logger.Info($"{_monitorSettingViewModel.Channel} : ExitWriteLock (2)..");
+                    _logger.Debug($"{_monitorSettingViewModel.Channel} : ExitWriteLock (2)..");
                     _monitorSettingViewModel.ReaderWriterLock.ExitWriteLock();
                 }
 
                 //if (_monitorSettingViewModel.ReaderWriterLock.IsReadLockHeld)
                 //{
-                _logger.Info($"{_monitorSettingViewModel.Channel} : ExitReadLock ..");
+                _logger.Debug($"{_monitorSettingViewModel.Channel} : ExitReadLock ..");
                 _monitorSettingViewModel.ReaderWriterLock.ExitUpgradeableReadLock();
                 //}
             }

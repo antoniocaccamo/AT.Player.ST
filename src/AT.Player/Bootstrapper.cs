@@ -36,16 +36,16 @@ namespace AT.Player
         {
             // Perform any other configuration before the application starts
 
-            //Unosquare.FFME.Library.FFmpegDirectory =
-            //    @"ffmpeg";
-            //// Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
-            //Logger.Info("Configure Unosquare.FFME.Library.FFmpegDirectory) [{0}] - Exists [{1}]",
-            //    Unosquare.FFME.Library.FFmpegDirectory,
-            //    System.IO.Directory.Exists(Unosquare.FFME.Library.FFmpegDirectory)
-            //);
+            Unosquare.FFME.Library.FFmpegDirectory =
+                @"ffmpeg";
+            // Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
+            Logger.Info("Configure Unosquare.FFME.Library.FFmpegDirectory) [{0}] - Exists [{1}]",
+                Unosquare.FFME.Library.FFmpegDirectory,
+                System.IO.Directory.Exists(Unosquare.FFME.Library.FFmpegDirectory)
+            );
 
-            //Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
-            //Unosquare.FFME.Library.LoadFFmpeg();
+            Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
+            Unosquare.FFME.Library.LoadFFmpeg();
         }
 
         protected override void ConfigureIoC(IStyletIoCBuilder builder)

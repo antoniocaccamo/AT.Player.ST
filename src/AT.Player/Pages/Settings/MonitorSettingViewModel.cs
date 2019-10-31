@@ -150,7 +150,7 @@
         {
             _logger.Info($"{_channel} : DoPay()...");
             MonitorStatus = MonitorStatusEnum.PLAYING;
-            Refresh();
+            //Refresh();
             await NextAsync();
         }
 
@@ -158,7 +158,7 @@
         {
             //Next();
             MonitorStatus = MonitorStatusEnum.STOPPED;
-            Refresh();
+            //Refresh();
         }
 
         void IHandle<MonitorShowMediaErrorEvent>.Handle(MonitorShowMediaErrorEvent evt)
@@ -212,10 +212,16 @@
             TimerCallback tc = new TimerCallback(stc.timingCallBack);
             _timer = new Timer(tc, null, 500, 1500);
 
-            _monitorViewModel.ProgressChanged += (snd, evt) =>
+            _monitorViewModel.OnProgressChanged += (snd, evt) =>
             {
-                _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
-                Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
+                _logger.Info($"{_channel} : progress changed : {evt.ProgressPercentage}");
+                Task.Factory.StartNew(() => CurrentProgress = evt.ProgressPercentage);
+            };
+
+            _monitorViewModel.OnMediaEnded += (snd, evt) =>
+            {
+                _logger.Info($"{_channel} : media ended : {evt.Media}");
+                Task.Factory.StartNew(() => NextAsync());
             };
         }
 

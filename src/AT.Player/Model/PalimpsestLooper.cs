@@ -52,7 +52,7 @@
                 {
                     _next = ++_next % _palimpsest.Medias.Count;
                     media = _palimpsest.Medias[_next];
-                    if (media.isPlayable(now))
+                    if (media.IsPlayable(now))
                     {
                         found = true;
                     }

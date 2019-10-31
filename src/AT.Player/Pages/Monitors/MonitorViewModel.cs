@@ -2,8 +2,10 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Threading.Tasks;
     using AT.Player.Configuration;
     using AT.Player.Events;
+    using AT.Player.Model;
     using Stylet;
 
     /// <summary>
@@ -12,7 +14,7 @@
     {
         #region Public Fields
 
-        public event ProgressChangedEventHandler ProgressChanged;
+        public event ProgressChangedEventHandler OnProgressChanged;
 
         #endregion Public Fields
 
@@ -27,7 +29,11 @@
         private Monitor _monitor;
         private readonly VideoViewModel _video;
 
+        private Media _media;
+
         #endregion Private Fields
+
+        public event OnMediaEnded OnMediaEnded;
 
         #region Public Constructors
 
@@ -43,7 +49,9 @@
 
         #region Public Properties
 
-        public Configuration.Monitor Monitor => _monitor;
+        public Monitor Monitor => _monitor;
+
+        public Media CurrentMedia => _media;
 
         #endregion Public Properties
 
@@ -68,7 +76,12 @@
 
         public void FireProgressChanged(ProgressChangedEventArgs evt)
         {
-            Execute.PostToUIThread(() => ProgressChanged(this, evt));
+            Task.Factory.StartNew(() => OnProgressChanged(this, evt));
+        }
+
+        public void FireMediaEnded()
+        {
+            Task.Factory.StartNew(() => OnMediaEnded(this, new MediaEndedEvent() { Media = _media }));
         }
 
         void IHandle<MonitorShowMediaEvent>.Handle(MonitorShowMediaEvent evt)
@@ -94,6 +107,7 @@
                         this.ActivateItem(_image);
                         break;
                 }
+                _media = evt.Media;
             }
             catch (Exception e)
             {
@@ -103,15 +117,6 @@
         }
 
         #endregion Public Methods
-
-        #region Internal Methods
-
-        internal void RequestNext()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion Internal Methods
 
         //public double Height
         //{

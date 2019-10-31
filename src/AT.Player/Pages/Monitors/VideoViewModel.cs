@@ -2,6 +2,8 @@
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 using Vlc.DotNet.Wpf;
 
 namespace AT.Player.Pages.Monitors
@@ -14,27 +16,46 @@ namespace AT.Player.Pages.Monitors
 
         public VlcControl VlcControl { get => _vlcControl; set => _vlcControl = value; }
 
+        private DispatcherTimer _timer = new DispatcherTimer();
+
         //public VideoViewModel(string channel) : base(channel)
         //{
         //}
 
         public VideoViewModel(Stylet.IEventAggregator events) : base(events)
         {
+            _timer.Interval = TimeSpan.FromMilliseconds(1000);
+            _timer.Tick += (snd, evt) =>
+            {
+                var percentage = (int)(100 * _mediaElement?.Position.TotalMilliseconds / MonitorViewModel.CurrentMedia.Duration.TotalMilliseconds);
+                _logger.Info($"{Channel} :  PositionChanged {_mediaElement?.Position} percentage {percentage}");
+                MonitorViewModel.FireProgressChanged(new ProgressChangedEventArgs(percentage, null));
+            };
         }
 
         public void MediaElement_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
             _logger.Error($"{Channel} : error playing video : {e.ErrorException}");
+            this.MonitorViewModel.FireMediaEnded();
+            _timer.Stop();
         }
 
         public void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
             _logger.Info($" {Channel} : media opened ");
+
+            _mediaElement = _mediaElement ?? (sender as MediaElement);
+
+            this.MonitorViewModel.CurrentMedia.Duration = _mediaElement.NaturalDuration.TimeSpan;
+
+            _timer.Start();
         }
 
         public void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             _logger.Info($" {Channel} : media endend");
+            this.MonitorViewModel.FireMediaEnded();
+            _timer.Stop();
         }
 
         //public VlcVideoSourceProvider SourceProvider { get; }
@@ -93,6 +114,7 @@ namespace AT.Player.Pages.Monitors
         }
 
         private Uri _source;
+        private MediaElement _mediaElement;
 
         //public void MediaElement_MediaFailed(object sender, Unosquare.FFME.Common.MediaFailedEventArgs e)
         //{

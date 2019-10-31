@@ -20,7 +20,7 @@ namespace AT.Player.Model
 
         public bool[] Days { get; set; }
 
-        public double Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public string LocalFile { get; set; }
 
@@ -37,7 +37,7 @@ namespace AT.Player.Model
             _logger.Info($"postConstruct {LocalFile} ...");
         }
 
-        internal bool isPlayable(DateTime now)
+        internal bool IsPlayable(DateTime now)
         {
             return true;
         }

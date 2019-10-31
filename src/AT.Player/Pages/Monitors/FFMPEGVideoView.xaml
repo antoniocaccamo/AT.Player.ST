@@ -1,0 +1,26 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:ffme="clr-namespace:Unosquare.FFME;assembly=ffme.win"
+             x:Class="AT.Player.Pages.Monitors.FFMPEGVideoView"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <!--<RowDefinition Height="1*" />-->
+        </Grid.RowDefinitions>
+
+        <ffme:MediaElement x:Name="ffme"
+                           Source="{Binding Source}"
+                           Stretch="Fill"
+                           LoadedBehavior="Play" UnloadedBehavior="Close"
+                           MediaFailed="{s:Action MediaElement_MediaFailed}"
+                           MediaEnded="{s:Action MediaElement_MediaEnded}"
+                           MediaOpened="{s:Action MediaElement_MediaOpened}"
+                           PositionChanged="{s:Action MediaElement_PositionChanged}" />
+    </Grid>
+</UserControl>

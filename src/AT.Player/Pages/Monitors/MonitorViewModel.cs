@@ -30,6 +30,7 @@
         private readonly VideoViewModel _video;
 
         private Media _media;
+        private DateTime _currentMediaShowDateTiem;
 
         #endregion Private Fields
 
@@ -52,6 +53,8 @@
         public Monitor Monitor => _monitor;
 
         public Media CurrentMedia => _media;
+
+        public DateTime CurrentMediaShowDateTime => _currentMediaShowDateTiem;
 
         #endregion Public Properties
 
@@ -108,6 +111,7 @@
                         break;
                 }
                 _media = evt.Media;
+                _currentMediaShowDateTiem = DateTime.Now;
             }
             catch (Exception e)
             {

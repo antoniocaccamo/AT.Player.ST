@@ -1,5 +1,6 @@
 ﻿using Stylet;
 using System;
+using System.Windows.Threading;
 
 namespace AT.Player.Pages.Monitors
 {
@@ -9,6 +10,8 @@ namespace AT.Player.Pages.Monitors
 
         private string _channel;
         protected readonly IEventAggregator _events;
+
+        protected DispatcherTimer _timer = new DispatcherTimer();
 
         protected AbstractMonitorViewModel(IEventAggregator events)
         {

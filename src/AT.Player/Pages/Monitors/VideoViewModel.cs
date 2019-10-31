@@ -16,8 +16,6 @@ namespace AT.Player.Pages.Monitors
 
         public VlcControl VlcControl { get => _vlcControl; set => _vlcControl = value; }
 
-        private DispatcherTimer _timer = new DispatcherTimer();
-
         //public VideoViewModel(string channel) : base(channel)
         //{
         //}

@@ -173,7 +173,7 @@
                 <Button
                         x:Name="buttonStop"
                         Grid.Row="1"
-                        Command="{Binding StopCommand}"
+                        Command="{s:Action DoStop}"
                         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                         ToolTip="Stop">
                     <materialDesign:PackIcon
@@ -186,7 +186,7 @@
                         x:Name="buttonPause"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Command="{Binding PauseCommand}"
+                        Command="{s:Action DoPause}"
                         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                         ToolTip="Pause">
                     <materialDesign:PackIcon

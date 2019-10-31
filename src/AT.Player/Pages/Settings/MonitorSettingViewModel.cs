@@ -10,6 +10,7 @@
     using Stylet;
     using System;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
 
     public class MonitorSettingViewModel : Screen, IHandle<Events.MonitorShowMediaErrorEvent>, IHandle<MediaProgressChangeEvent>
@@ -33,21 +34,17 @@
                 LabelledValue.Create(Configuration.Activation.WhenNotActiveEnum.WATCH.ToString(), Configuration.Activation.WhenNotActiveEnum.WATCH)
             };
 
-        private string _channel;
-
         private readonly IEventAggregator _events;
-
-        private Configuration.Monitor _monitor;
-
         private readonly PalimpsestLooper _palimpsestLooper;
+        private readonly ReaderWriterLockSlim _rwl = new ReaderWriterLockSlim();
 
         //private readonly IMonitorViewModelFactory _monitorViewModelFactory;
         private readonly IWindowManager _windowManager;
 
+        private string _channel;
         private DateTime _currentMediaPausedDateTime;
-
         private DateTime _currentMediaStartDateTime;
-
+        private Configuration.Monitor _monitor;
         private MonitorStatusEnum _monitorStatus;
 
         private Monitors.MonitorViewModel _monitorViewModel;
@@ -55,7 +52,6 @@
         private LabelledValue<Configuration.Activation.ActivationEnum> _selectedActivationEnum;
 
         private LabelledValue<Configuration.Activation.WhenNotActiveEnum> _selectedWhenNotActiveEnum;
-
         private Timer _timer;
 
         #endregion Private Fields
@@ -79,7 +75,7 @@
 
         #endregion Public Constructors
 
-        public event MonitorShowMediaEvent CurrentMediaChanged;
+        //public event MonitorShowMediaEvent CurrentMediaChanged;
 
         #region Public Enums
 
@@ -97,13 +93,17 @@
 
         public BindableCollection<LabelledValue<Configuration.Activation.ActivationEnum>> ActivationEnumValues => _activationEnum;
 
+        public bool CanDoPause => MonitorStatusEnum.PLAYING.Equals(MonitorStatus);
+        public bool CanDoPlay => MonitorStatusEnum.NOT_ACTIVE.Equals(MonitorStatus) || MonitorStatusEnum.STOPPED.Equals(MonitorStatus);
+        public bool CanDoStop => MonitorStatusEnum.PLAYING.Equals(MonitorStatus);
+        public string Channel => _channel;
         public Media CurrentMedia { get; private set; }
 
+        public int CurrentProgress { get; private set; }
         public Configuration.Monitor Monitor => _monitor;
-
-        public MonitorStatusEnum MonitorStatus { get => _monitorStatus; private set => _monitorStatus = value; }
-
+        public MonitorStatusEnum MonitorStatus { get => _monitorStatus; set => _monitorStatus = value; }
         Palimpsest Palimpsest => _palimpsestLooper.Palimpsest;
+        public ReaderWriterLockSlim ReaderWriterLock => _rwl;
 
         public LabelledValue<Configuration.Activation.ActivationEnum> SelectedActivationEnum
         {
@@ -118,8 +118,6 @@
         }
 
         public BindableCollection<LabelledValue<Configuration.Activation.WhenNotActiveEnum>> WhenNotActiveEnumValues => _whenNotActiveEnum;
-
-        public int CurrentProgress { get; private set; }
 
         #endregion Public Properties
 
@@ -142,51 +140,59 @@
             this._events.Subscribe(this, _channel);
         }
 
-        public bool CanDoPlay()
-        {
-            return MonitorStatusEnum.NOT_ACTIVE.Equals(MonitorStatus) || MonitorStatusEnum.STOPPED.Equals(MonitorStatus);
-        }
-
-        public void DoPlay()
-        {
-            Next();
-            MonitorStatus = MonitorStatusEnum.PLAYING;
-        }
-
-        public bool CanDoPause()
-        {
-            return MonitorStatusEnum.PLAYING.Equals(MonitorStatus);
-        }
-
         public void DoPause()
         {
             //Next();
             MonitorStatus = MonitorStatusEnum.PAUSED;
         }
 
-        public bool CanDoStop()
+        public async Task DoPlay()
         {
-            return MonitorStatusEnum.PLAYING.Equals(MonitorStatus);
+            _logger.Info($"{_channel} : DoPay()...");
+            MonitorStatus = MonitorStatusEnum.PLAYING;
+            Refresh();
+            await NextAsync();
         }
 
         public void DoStop()
         {
             //Next();
             MonitorStatus = MonitorStatusEnum.STOPPED;
+            Refresh();
         }
 
-        public void Next()
+        void IHandle<MonitorShowMediaErrorEvent>.Handle(MonitorShowMediaErrorEvent evt)
+        {
+            _logger.Error($"{_channel} : can't play media : {evt.Media}");
+            NextAsync();
+        }
+
+        void IHandle<MediaProgressChangeEvent>.Handle(MediaProgressChangeEvent evt)
+        {
+            _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
+            Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
+        }
+
+        public async Task NextAsync()
         {
             //_timer?.Dispose();
             //ProgressChanged(this, new ProgressChangedEventArgs(0, null));
+            _logger.Info($"{_channel} : Next() : start ..");
             if (_palimpsestLooper.Palimpsest != null)
             {
                 CurrentMedia = _palimpsestLooper.Next;
                 _currentMediaStartDateTime = DateTime.Now;
                 _currentMediaPausedDateTime = DateTime.MinValue;
                 //_worker.RunWorkerAsync();
-                ShowMedia();
             }
+            _logger.Info($"{_channel} : Next() : end ..");
+
+            await ShowMediaAsync();
+        }
+
+        public void ShowMonitor()
+        {
+            Execute.PostToUIThread(() => _windowManager.ShowWindow(this._monitorViewModel));
         }
 
         #endregion Public Methods
@@ -200,32 +206,29 @@
             base.OnClose();
         }
 
-        public void ShowMonitor()
+        protected override void OnInitialActivate()
         {
-            Execute.PostToUIThread(() => _windowManager.ShowWindow(this._monitorViewModel));
+            MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
+            TimerCallback tc = new TimerCallback(stc.timingCallBack);
+            _timer = new Timer(tc, null, 500, 1500);
+
+            _monitorViewModel.ProgressChanged += (snd, evt) =>
+            {
+                _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
+                Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
+            };
         }
 
         #endregion Protected Methods
 
         #region Private Methods
 
-        private void ShowMedia()
+        private async Task ShowMediaAsync()
         {
-            Execute.PostToUIThread(() => CurrentProgress = 0);
-            Execute.PostToUIThread(() => _events.Publish(new Events.MonitorShowMediaEvent(CurrentMedia), _channel));
-            //this._events.PublishOnUIThread(new Events.MonitorShowMediaEvent(CurrentMedia), _channel);
-        }
-
-        void IHandle<MonitorShowMediaErrorEvent>.Handle(MonitorShowMediaErrorEvent evt)
-        {
-            _logger.Error($"{_channel} : can't play media : {evt.Media}");
-            Next();
-        }
-
-        void IHandle<MediaProgressChangeEvent>.Handle(MediaProgressChangeEvent evt)
-        {
-            _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
-            Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
+            _logger.Info($"{_channel} : ShowMedia() : start ..");
+            CurrentProgress = 0;
+            _events.Publish(new Events.MonitorShowMediaEvent(CurrentMedia), _channel);
+            _logger.Info($"{_channel} : ShowMedia() : end ..");
         }
 
         #endregion Private Methods
@@ -235,18 +238,5 @@
         //    get => _monitor.Location.Top;
         //    set => _monitor.Location.Top = value;
         //}
-
-        protected override void OnInitialActivate()
-        {
-            MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
-            TimerCallback tc = new TimerCallback(stc.timingCallBack);
-            _timer = new Timer(tc, null, 100, 500);
-
-            _monitorViewModel.ProgressChanged += (snd, evt) =>
-            {
-                _logger.Error($"{_channel} : progress changed : {evt.ProgressPercentage}");
-                Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
-            };
-        }
     }
 }

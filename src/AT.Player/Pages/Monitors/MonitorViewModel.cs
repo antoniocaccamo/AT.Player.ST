@@ -21,11 +21,11 @@
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         private readonly IEventAggregator _events;
-        private BrowserViewModel _browser;
+        private readonly BrowserViewModel _browser;
         private string _channel;
-        private ImageViewModel _image;
+        private readonly ImageViewModel _image;
         private Monitor _monitor;
-        private VideoViewModel _video;
+        private readonly VideoViewModel _video;
 
         #endregion Private Fields
 

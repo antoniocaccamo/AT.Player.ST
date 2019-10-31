@@ -16,22 +16,22 @@
 
         <!--<Vlc:VlcControl xmlns:Vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf" x:Name="vlcControl" />-->
 
-        <!--<MediaElement Grid.Row="1"
+        <MediaElement Grid.Row="0"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                            LoadedBehavior="Play"
                            Stretch="Fill"
                            Source="{Binding Source}"
                            MediaFailed="{s:Action MediaElement_MediaFailed}"
                            MediaOpened="{s:Action MediaElement_MediaOpened}"
-                           MediaEnded="{s:Action MediaElement_MediaEnded}" />-->
+                           MediaEnded="{s:Action MediaElement_MediaEnded}" />
 
-        <ContentControl Content="{Binding VlcControl}"
+        <!-- <ContentControl Content="{Binding VlcControl}"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         x:Name="vlcControl" Margin="2"
                         BorderThickness="2" BorderBrush="Red"
                         SizeChanged="{s:Action SizeChanged}" />
 
-        <!--<Wpf:VlcControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="vlcControl" Binding />-->
+        <Wpf:VlcControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="vlcControl" Binding />-->
     </Grid>
 </UserControl>

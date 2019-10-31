@@ -22,6 +22,7 @@ namespace AT.Player.Pages.Monitors
                 if (percentage >= 100)
                 {
                     _timer.Stop();
+                    MonitorViewModel.FireMediaEnded();
                 }
             };
         }

@@ -79,12 +79,12 @@
 
         public void FireProgressChanged(ProgressChangedEventArgs evt)
         {
-            Task.Factory.StartNew(() => OnProgressChanged(this, evt));
+            Execute.PostToUIThread(() => OnProgressChanged(this, evt));
         }
 
         public void FireMediaEnded()
         {
-            Task.Factory.StartNew(() => OnMediaEnded(this, new MediaEndedEvent() { Media = _media }));
+            Execute.PostToUIThread(() => OnMediaEnded(this, new MediaEndedEvent() { Media = _media }));
         }
 
         void IHandle<MonitorShowMediaEvent>.Handle(MonitorShowMediaEvent evt)
@@ -93,23 +93,29 @@
 
             try
             {
-                Uri source;
+                Uri source = null;
                 //IScreen screen = null;
+                AbstractMonitorViewModel @abstract = null;
                 switch (evt.Media.Type)
                 {
-                    case Model.Media.MediaTypeEnum.VIDEO:
+                    case Media.MediaTypeEnum.VIDEO:
+                        @abstract = _video;
                         source = new Uri(evt.Media.LocalFile);
-                        Execute.PostToUIThread(() => _video.Source = source);
-                        ;                       // _video.Source = source;
-                        this.ActivateItem(_video);
+                        //Execute.PostToUIThread(() => _video.Source = source);
+                        //;                       // _video.Source = source;
+                        //this.ActivateItem(_video);
                         break;
 
-                    case Model.Media.MediaTypeEnum.IMAGE:
+                    case Media.MediaTypeEnum.IMAGE:
+                        @abstract = _image;
                         source = new Uri(evt.Media.LocalFile);
-                        _image.Source = source;
-                        this.ActivateItem(_image);
+                        //_image.Source = source;
+                        //this.ActivateItem(_image);
                         break;
                 }
+                @abstract.Source = source;
+                @abstract.Play();
+                this.ActivateItem(@abstract);
                 _media = evt.Media;
                 _currentMediaShowDateTiem = DateTime.Now;
             }

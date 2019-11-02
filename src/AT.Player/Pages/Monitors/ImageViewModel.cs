@@ -13,7 +13,6 @@ namespace AT.Player.Pages.Monitors
 
         public ImageViewModel(Stylet.IEventAggregator events) : base(events)
         {
-            _timer.Interval = TimeSpan.FromMilliseconds(1000);
             _timer.Tick += (snd, evt) =>
             {
                 var percentage = (int)(100 * DateTime.Now.Subtract(MonitorViewModel.CurrentMediaShowDateTime).TotalMilliseconds / MonitorViewModel.CurrentMedia.Duration.TotalMilliseconds);
@@ -27,6 +26,6 @@ namespace AT.Player.Pages.Monitors
             };
         }
 
-        public override Uri Source { get => base.Source; set { base.Source = value; _timer.Start(); } }
+        //public override Uri Source { get => base.Source; set { base.Source = value; _timer.Start(); } }
     }
 }

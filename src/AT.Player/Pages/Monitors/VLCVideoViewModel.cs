@@ -8,7 +8,7 @@ using Vlc.DotNet.Wpf;
 
 namespace AT.Player.Pages.Monitors
 {
-    public class VideoViewModel : AbstractMonitorViewModel
+    public class VLCVideoViewModel : AbstractMonitorViewModel
     {
         #region Protected Fields
 
@@ -26,7 +26,7 @@ namespace AT.Player.Pages.Monitors
 
         #region Public Constructors
 
-        public VideoViewModel(Stylet.IEventAggregator events) : base(events)
+        public VLCVideoViewModel(Stylet.IEventAggregator events) : base(events)
         {
             _timer.Tick += (snd, evt) =>
             {
@@ -40,15 +40,12 @@ namespace AT.Player.Pages.Monitors
 
         #region Public Properties
 
-        //public override Uri Source { get => base._source; set => base._source = value; }
+        public override Uri Source { get => base._source; set => base._source = value; }
         public VlcControl VlcControl { get => _vlcControl; set => _vlcControl = value; }
 
         #endregion Public Properties
 
         #region Public Methods
-
-        public override void Play()
-        { }
 
         public void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {

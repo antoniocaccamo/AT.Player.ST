@@ -1,6 +1,7 @@
 ﻿namespace AT.Player.Pages.Settings
 {
     using AT.Player.Callbacks;
+    using AT.Player.Configuration;
     using AT.Player.Events;
     using AT.Player.Helpers;
     using AT.Player.Model;
@@ -12,6 +13,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Threading;
 
     public class MonitorSettingViewModel : Screen, IHandle<Events.MonitorShowMediaErrorEvent>, IHandle<MediaProgressChangeEvent>
     {
@@ -52,7 +54,9 @@
         private LabelledValue<Configuration.Activation.ActivationEnum> _selectedActivationEnum;
 
         private LabelledValue<Configuration.Activation.WhenNotActiveEnum> _selectedWhenNotActiveEnum;
-        private Timer _timer;
+        //private Timer _timer;
+
+        protected DispatcherTimer _timer = new DispatcherTimer();
 
         #endregion Private Fields
 
@@ -208,21 +212,80 @@
 
         protected override void OnInitialActivate()
         {
-            MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
-            TimerCallback tc = new TimerCallback(stc.timingCallBack);
-            _timer = new Timer(tc, null, 500, 1500);
+            //MonitorSettingTimingCallback stc = new MonitorSettingTimingCallback(this);
+            //TimerCallback tc = new TimerCallback(stc.timingCallBack);
+            //_timer = new Timer(tc, null, 500, 1500);
 
             _monitorViewModel.OnProgressChanged += (snd, evt) =>
             {
                 _logger.Info($"{_channel} : progress changed : {evt.ProgressPercentage}");
-                Task.Factory.StartNew(() => CurrentProgress = evt.ProgressPercentage);
+                Execute.PostToUIThread(() => CurrentProgress = evt.ProgressPercentage);
             };
 
             _monitorViewModel.OnMediaEnded += (snd, evt) =>
             {
                 _logger.Info($"{_channel} : media ended : {evt.Media}");
-                Task.Factory.StartNew(() => NextAsync());
+                Execute.PostToUIThread(() => NextAsync());
             };
+
+            _timer.Interval = TimeSpan.FromMilliseconds(1000);
+            _timer.Tick += (snd, evt) =>
+            {
+                try
+                {
+                    _logger.Debug($"{Channel} : EnterUpgradeableReadLock ..");
+                    ReaderWriterLock.EnterUpgradeableReadLock();
+
+                    if (Monitor == null)
+                    {
+                        return;
+                    }
+
+                    _logger.Info("{0} : Monitor.MonitorStatus.PLAYING ? [{1}] Monitor.MonitorStatus [{2}] Setting.Activation.Type [{3}] ",
+                        _channel, MonitorSettingViewModel.MonitorStatusEnum.PLAYING.Equals(MonitorStatus),
+                        MonitorStatus, Monitor.Activation.Type
+                        );
+
+                    switch (Monitor.Activation.Type)
+                    {
+                        case Activation.ActivationEnum.TIMED:
+                            break;
+
+                        case Activation.ActivationEnum.ALLDAY:
+                            if (MonitorSettingViewModel.MonitorStatusEnum.NOT_ACTIVE.Equals(MonitorStatus))
+                            {
+                                _logger.Info($"{Channel} : EnterWriteLock ..");
+                                ReaderWriterLock.EnterWriteLock();
+                                _logger.Info($"{Channel} : EnterWriteLock : acquired..");
+
+                                Execute.PostToUIThread(() => DoPlay());
+
+                                _logger.Info($"{Channel} : ExitWriteLock  ..");
+                                ReaderWriterLock.ExitWriteLock();
+                            }
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.Error($"error occurred: {e.Message}");
+                }
+                finally
+                {
+                    if (ReaderWriterLock.IsWriteLockHeld)
+                    {
+                        _logger.Debug($"{Channel} : ExitWriteLock (2)..");
+                        ReaderWriterLock.ExitWriteLock();
+                    }
+
+                    //if (ReaderWriterLock.IsReadLockHeld)
+                    //{
+                    _logger.Debug($"{Channel} : ExitReadLock ..");
+                    ReaderWriterLock.ExitUpgradeableReadLock();
+                    //}
+                }
+            };
+            _timer.Start();
         }
 
         #endregion Protected Methods

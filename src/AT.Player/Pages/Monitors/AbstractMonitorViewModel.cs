@@ -8,14 +8,21 @@ namespace AT.Player.Pages.Monitors
     {
         #region Private Fields
 
+        private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+
         private string _channel;
+        protected Uri _source;
         protected readonly IEventAggregator _events;
 
-        protected DispatcherTimer _timer = new DispatcherTimer();
+        protected readonly DispatcherTimer _timer;
 
         protected AbstractMonitorViewModel(IEventAggregator events)
         {
             _events = events;
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(500)
+            };
         }
 
         #endregion Private Fields
@@ -28,8 +35,20 @@ namespace AT.Player.Pages.Monitors
 
         //public IEventAggregator EventAggregator => _events;
 
-        public virtual Uri Source { get; set; }
+        public virtual Uri Source
+        {
+            get => _source;
+            set => _source = value;
+        }
 
-        #endregion Public Properties
+        public virtual void Play()
+        {
+            //_timer.Stop();
+            //_timer.Interval = TimeSpan.FromMilliseconds(500);
+            _timer.Start();
+            _logger.Warn("{0} :  _timer.IsEnabled : {1} ", _channel, _timer.IsEnabled);
+        }
     }
+
+    #endregion Public Properties
 }

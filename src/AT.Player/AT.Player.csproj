@@ -105,6 +105,7 @@
       <DependentUpon>VideoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Monitors\FFMPEGVideoViewModel.cs" />
+    <Compile Include="Pages\Monitors\VLCVideoViewModel.cs" />
     <Compile Include="Pages\Settings\TaskbarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,11 +23,11 @@
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
         private readonly IEventAggregator _events;
-        private readonly BrowserViewModel _browser;
+        private readonly AbstractMonitorViewModel _browser;
         private string _channel;
-        private readonly ImageViewModel _image;
+        private readonly AbstractMonitorViewModel _image;
         private Monitor _monitor;
-        private readonly VideoViewModel _video;
+        private readonly AbstractMonitorViewModel _video;
 
         private Media _media;
         private DateTime _currentMediaShowDateTiem;
@@ -38,7 +38,7 @@
 
         #region Public Constructors
 
-        public MonitorViewModel(IEventAggregator events, VideoViewModel videoViewModel, ImageViewModel imageViewModel, BrowserViewModel browserViewModel)
+        public MonitorViewModel(IEventAggregator events, VLCVideoViewModel videoViewModel, ImageViewModel imageViewModel, BrowserViewModel browserViewModel)
         {
             this._events = events;
             this._video = videoViewModel;

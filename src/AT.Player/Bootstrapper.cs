@@ -8,6 +8,7 @@ using AT.Player.Pages.Monitors;
 //using AT.Player.Service;
 using AT.Player.Configuration;
 using NLog;
+using LibVLCSharp.Shared;
 
 namespace AT.Player
 {
@@ -46,6 +47,8 @@ namespace AT.Player
 
             Unosquare.FFME.Library.EnableWpfMultiThreadedVideo = true;
             Unosquare.FFME.Library.LoadFFmpeg();
+
+            Core.Initialize();
         }
 
         protected override void ConfigureIoC(IStyletIoCBuilder builder)

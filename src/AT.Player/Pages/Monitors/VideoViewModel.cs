@@ -3,19 +3,11 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
-using Vlc.DotNet.Wpf;
 
 namespace AT.Player.Pages.Monitors
 {
     public class VideoViewModel : AbstractMonitorViewModel
     {
-        #region Protected Fields
-
-        protected VlcControl _vlcControl;
-
-        #endregion Protected Fields
-
         #region Private Fields
 
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
@@ -41,14 +33,14 @@ namespace AT.Player.Pages.Monitors
         #region Public Properties
 
         //public override Uri Source { get => base._source; set => base._source = value; }
-        public VlcControl VlcControl { get => _vlcControl; set => _vlcControl = value; }
 
         #endregion Public Properties
 
         #region Public Methods
 
         public override void Play()
-        { }
+        {
+        }
 
         public void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {

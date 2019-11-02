@@ -1,39 +1,31 @@
-﻿using Stylet;
-using System;
+﻿using System;
 using System.ComponentModel;
-using System.Windows;
-using Vlc.DotNet.Wpf;
 
 namespace AT.Player.Pages.Monitors
 {
     public class FFMPEGVideoViewModel : AbstractMonitorViewModel
     {
+        #region Private Fields
+
         private static readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 
-        //public VideoViewModel(string channel) : base(channel)
-        //{
-        //}
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public FFMPEGVideoViewModel(Stylet.IEventAggregator events) : base(events)
         {
         }
 
-        public override Uri Source
-        {
-            get => _source; set
-            {
-                _source = value;
-                //_vlcControl.SourceProvider.MediaPlayer.SetMedia(value);
-                //_vlcControl.SourceProvider.MediaPlayer.Play();
-            }
-        }
+        #endregion Public Constructors
 
-        protected override void OnInitialActivate()
-        {
-            base.OnInitialActivate();
-        }
+        #region Public Methods
 
-        private Uri _source;
+        public void MediaElement_MediaEnded(object sender, EventArgs e)
+        {
+            _logger.Info($" {Channel} : media endend");
+            this.MonitorViewModel.FireMediaEnded();
+        }
 
         public void MediaElement_MediaFailed(object sender, Unosquare.FFME.Common.MediaFailedEventArgs e)
         {
@@ -47,17 +39,17 @@ namespace AT.Player.Pages.Monitors
             MonitorViewModel.CurrentMedia.Duration = e.Info.Duration;
         }
 
-        public void MediaElement_MediaEnded(object sender, EventArgs e)
-        {
-            _logger.Info($" {Channel} : media endend");
-            this.MonitorViewModel.FireMediaEnded();
-        }
-
         public void MediaElement_PositionChanged(object sender, Unosquare.FFME.Common.PositionChangedEventArgs e)
         {
             var percentage = (int)(100 * e.Position.TotalMilliseconds / MonitorViewModel.CurrentMedia.Duration.TotalMilliseconds);
             _logger.Info($"{Channel} :  PositionChanged {e.Position} percentage {percentage}");
             MonitorViewModel.FireProgressChanged(new ProgressChangedEventArgs(percentage, null));
         }
+
+        public override void Play()
+        {
+        }
+
+        #endregion Public Methods
     }
 }

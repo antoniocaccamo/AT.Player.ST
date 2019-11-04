@@ -10,7 +10,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}">
     <DockPanel>
-        <TextBlock DockPanel.Dock="Top" Text="AAAAAAAAAAAAAAAAAAAA" Height="40" />
         <TabControl Style="{StaticResource StyletConductorTabControl}" />
     </DockPanel>
 </UserControl>

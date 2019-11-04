@@ -11,7 +11,7 @@ namespace AT.Player.Model
     using YamlDotNet.Serialization;
 
     [ToString]
-    public class Palimpsest : IModel
+    public class Sequence : IModel
     {
         #region Private Fields
 
@@ -36,9 +36,10 @@ namespace AT.Player.Model
 
         #region Public Methods
 
-        public void PostConstruct()
+        public override void PostConstruct()
         {
             _logger.Info($"postConstruct {LocalFile} ...");
+
             IEnumerator<Media> iem = Medias.GetEnumerator();
             while (iem.MoveNext())
             {

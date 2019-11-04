@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stylet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AT.Player.Model
 {
-    public interface IModel
+    public abstract class IModel : PropertyChangedBase
     {
         #region Public Methods
 
-        void PostConstruct();
+        public abstract void PostConstruct();
 
         #endregion Public Methods
     }

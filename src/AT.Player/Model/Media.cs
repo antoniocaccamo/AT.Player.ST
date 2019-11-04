@@ -12,43 +12,15 @@ namespace AT.Player.Model
 
         #endregion Private Fields
 
-        #region Properties
+        #region Public Enums
 
-        public long Cicles { get; set; }
-
-        public Dated Dated { get; set; }
-
-        public bool[] Days { get; set; }
-
-        public TimeSpan Duration { get; set; }
-
-        public string LocalFile { get; set; }
-
-        public string RemoteFile { get; set; }
-
-        public Timed Timed { get; set; }
-
-        public MediaTypeEnum Type { get; set; }
-
-        public LocationTypeEnum Location { get; set; }
-
-        public void PostConstruct()
+        public enum LocationTypeEnum
         {
-            _logger.Info($"postConstruct {LocalFile} ...");
+            LOCAL,
+            FTP,
+            WEB,
+            // S3
         }
-
-        internal bool IsPlayable(DateTime now)
-        {
-            return true;
-        }
-
-        #endregion Properties
-
-        #region Public Properties
-
-        [YamlIgnore] public bool isVideo => MediaTypeEnum.VIDEO.Equals(Type);
-
-        #endregion Public Properties
 
         public enum MediaTypeEnum
         {
@@ -61,12 +33,46 @@ namespace AT.Player.Model
             WEATHER
         }
 
-        public enum LocationTypeEnum
+        #endregion Public Enums
+
+        #region Public Properties
+
+        public long Cicles { get; set; }
+
+        public Dated Dated { get; set; }
+
+        public bool[] Days { get; set; }
+
+        public TimeSpan Duration { get; set; }
+
+        [YamlIgnore] public bool isVideo => MediaTypeEnum.VIDEO.Equals(Type);
+        public string LocalFile { get; set; }
+
+        public LocationTypeEnum Location { get; set; }
+        public string RemoteFile { get; set; }
+
+        public Timed Timed { get; set; }
+
+        public MediaTypeEnum Type { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public override void PostConstruct()
         {
-            LOCAL,
-            FTP,
-            WEB,
-            // S3
+            _logger.Info($"postConstruct {LocalFile} ...");
         }
+
+        #endregion Public Methods
+
+        #region Internal Methods
+
+        internal bool IsPlayable(DateTime now)
+        {
+            return true;
+        }
+
+        #endregion Internal Methods
     }
 }

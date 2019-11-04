@@ -27,16 +27,16 @@ monitors:
             to: 23:30
             whenNotActive: WATCH
 #            image :
-    -
-        size:
-            width: 368
-            height: 276
-        location:
-            top: 50
-            left: 650
-        sequence: "C:\\development\\workspaces\\antoniocaccamo\\AT.Player.ST\\src\\AT.Player\\Resources\\sequence.01.yaml"
-        activation: 
-            type: ALLDAY            
+#    -
+#        size:
+#            width: 368
+#            height: 276
+#        location:
+#            top: 50
+#            left: 650
+#        sequence: "C:\\development\\workspaces\\antoniocaccamo\\AT.Player.ST\\src\\AT.Player\\Resources\\sequence.01.yaml"
+#        activation: 
+#            type: ALLDAY            
 #
 #    -
 #        size:

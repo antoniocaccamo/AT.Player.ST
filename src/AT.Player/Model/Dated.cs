@@ -1,9 +1,10 @@
 namespace AT.Player.Model
 {
+    using Stylet;
     using System;
 
     [ToString]
-    public class Dated
+    public class Dated : PropertyChangedBase
     {
         #region Properties
 

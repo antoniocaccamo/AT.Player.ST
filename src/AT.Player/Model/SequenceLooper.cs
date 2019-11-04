@@ -3,18 +3,18 @@
     using System;
 
     [ToString]
-    public class PalimpsestLooper
+    public class SequenceLooper
     {
         #region Private Fields
 
         private int _loop, _current, _next;
-        private Palimpsest _palimpsest;
+        private Sequence _sequence;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public PalimpsestLooper()
+        public SequenceLooper()
         {
             _loop = _current = 0;
             _next = -1;
@@ -25,14 +25,14 @@
         #region Public Properties
 
         public int Loop => _loop;
-        public Media Next => getNext(System.DateTime.Now);
+        public Media Next => getNext(DateTime.Now);
 
-        public Palimpsest Palimpsest
+        public Sequence Palimpsest
         {
-            get => _palimpsest;
+            get => _sequence;
             set
             {
-                _palimpsest = value;
+                _sequence = value;
                 _loop = _current = 0;
                 _next = -1;
             }
@@ -46,12 +46,12 @@
         {
             bool found = false;
             Media media = null;
-            lock (_palimpsest)
+            lock (_sequence)
             {
                 while (!found)
                 {
-                    _next = ++_next % _palimpsest.Medias.Count;
-                    media = _palimpsest.Medias[_next];
+                    _next = ++_next % _sequence.Medias.Count;
+                    media = _sequence.Medias[_next];
                     if (media.IsPlayable(now))
                     {
                         found = true;

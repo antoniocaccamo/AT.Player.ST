@@ -37,7 +37,7 @@
             };
 
         private readonly IEventAggregator _events;
-        private readonly PalimpsestLooper _palimpsestLooper;
+        private readonly SequenceLooper _palimpsestLooper;
         private readonly ReaderWriterLockSlim _rwl = new ReaderWriterLockSlim();
 
         //private readonly IMonitorViewModelFactory _monitorViewModelFactory;
@@ -74,7 +74,7 @@
             _logger.Warn("###### " + DisplayName);
 
             _monitorStatus = MonitorStatusEnum.NOT_ACTIVE;
-            _palimpsestLooper = new PalimpsestLooper();
+            _palimpsestLooper = new SequenceLooper();
         }
 
         #endregion Public Constructors
@@ -106,7 +106,7 @@
         public int CurrentProgress { get; private set; }
         public Configuration.Monitor Monitor => _monitor;
         public MonitorStatusEnum MonitorStatus { get => _monitorStatus; set => _monitorStatus = value; }
-        Palimpsest Palimpsest => _palimpsestLooper.Palimpsest;
+        Sequence Palimpsest => _palimpsestLooper.Palimpsest;
         public ReaderWriterLockSlim ReaderWriterLock => _rwl;
 
         public LabelledValue<Configuration.Activation.ActivationEnum> SelectedActivationEnum
@@ -135,7 +135,7 @@
             _selectedActivationEnum = LabelledValue.Create(_monitor.Activation.Type.ToString(), _monitor.Activation.Type);
             _selectedWhenNotActiveEnum = LabelledValue.Create(_monitor.Activation.WhenNotActive.ToString(), _monitor.Activation.WhenNotActive);
 
-            var palimpsest = PalimpsestHelper.Get(_monitor?.Sequence);
+            var palimpsest = SequenceHelper.Get(_monitor?.Sequence);
             if (palimpsest != null)
             {
                 _palimpsestLooper.Palimpsest = palimpsest;

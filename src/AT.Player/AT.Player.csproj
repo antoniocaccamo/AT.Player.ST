@@ -85,10 +85,10 @@
     <Compile Include="Events\MonitorShowMediaErrorEvent.cs" />
     <Compile Include="Events\MonitorShowMediaEvent.cs" />
     <Compile Include="Events\SnackBarEvent.cs" />
-    <Compile Include="Helpers\PalimpsestHelper.cs" />
+    <Compile Include="Helpers\SequenceHelper.cs" />
     <Compile Include="Helpers\PreferenceHelper.cs" />
     <Compile Include="Callbacks\ITimingCallback.cs" />
-    <Compile Include="Model\PalimpsestLooper.cs" />
+    <Compile Include="Model\SequenceLooper.cs" />
     <Compile Include="Model\Timed.cs" />
     <Compile Include="Events\AbstractShowEvent.cs" />
     <Compile Include="Events\MediaProgressChangeEvent.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="Model\Dated.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Media.cs" />
-    <Compile Include="Model\Palimpsest.cs" />
+    <Compile Include="Model\Sequence.cs" />
     <Compile Include="Pages\Monitors\AbstractMonitorViewModel.cs" />
     <Compile Include="Pages\Monitors\FFMPEGVideoView.xaml.cs">
       <DependentUpon>FFMPEGVideoView.xaml</DependentUpon>

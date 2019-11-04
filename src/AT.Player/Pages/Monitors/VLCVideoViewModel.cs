@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.IO;
+    using Vlc.DotNet.Core;
     using Vlc.DotNet.Forms;
 
     public class VLCVideoViewModel : AbstractMonitorViewModel
@@ -53,31 +54,45 @@
         public void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             (this.View as VLCVideoView).WindowsFormsHost.Child = (this.View as VLCVideoView).WindowsFormsHost.Child ?? _mediaPlayer;
+
+            var size = this.MonitorViewModel.Monitor.Size;
+            _mediaPlayer.Video.AspectRatio = $"{size.Width}:{size.Height}";
+            _mediaPlayer.Width = (int)size.Width;
+            _mediaPlayer.Height = (int)size.Height;
+            _logger.Info("{0} : UserControl_Loaded : _mediaPlayer.Video.AspectRatio = {1}", Channel, _mediaPlayer.Video.AspectRatio);
+        }
+
+        public void UserControl_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            _mediaPlayer.Video.AspectRatio = $"{e.NewSize.Width}:{e.NewSize.Height}";
+            _mediaPlayer.Width = (int)e.NewSize.Width;
+            _mediaPlayer.Height = (int)e.NewSize.Height;
+            _logger.Info("{0} : UserControl_SizeChanged : _mediaPlayer.Video.AspectRatio = {1}", Channel, _mediaPlayer.Video.AspectRatio);
         }
 
         #endregion Public Methods
 
         #region Private Methods
 
-        private void _mediaPlayer_EncounteredError(object sender, EventArgs e)
+        private void _mediaPlayer_EncounteredError(object sender, VlcMediaPlayerEncounteredErrorEventArgs e)
         {
             _logger.Error($"{Channel} : error playing video : {e}");
             MonitorViewModel.FireMediaEnded();
         }
 
-        private void _mediaPlayer_EndReached(object sender, EventArgs e)
+        private void _mediaPlayer_EndReached(object sender, VlcMediaPlayerEndReachedEventArgs e)
         {
             _logger.Info($" {Channel} : media endend : {e}");
             MonitorViewModel.FireMediaEnded();
         }
 
-        private void _mediaPlayer_Playing(object sender, EventArgs e)
+        private void _mediaPlayer_Playing(object sender, VlcMediaPlayerPlayingEventArgs e)
         {
-            _logger.Info($" {Channel} : media opened : {e}");
-            MonitorViewModel.CurrentMedia.Duration = TimeSpan.FromSeconds(6);
+            _logger.Info($" {Channel} : media opened : {e} _mediaPlayer.Length {_mediaPlayer.Length}");
+            MonitorViewModel.CurrentMedia.Duration = TimeSpan.FromMilliseconds(_mediaPlayer.Length);
         }
 
-        private void _mediaPlayer_PositionChanged(object sender, Vlc.DotNet.Core.VlcMediaPlayerPositionChangedEventArgs e)
+        private void _mediaPlayer_PositionChanged(object sender, VlcMediaPlayerPositionChangedEventArgs e)
         {
             var percentage = (int)(100 * e.NewPosition);
             _logger.Info($"{Channel} :  PositionChanged {e.NewPosition} percentage {percentage}");
@@ -85,5 +100,14 @@
         }
 
         #endregion Private Methods
+
+        protected override void OnActivate()
+        {
+            var size = this.MonitorViewModel.Monitor.Size;
+            _mediaPlayer.Video.AspectRatio = $"{size.Width}:{size.Height}";
+            _mediaPlayer.Width = (int)size.Width;
+            _mediaPlayer.Height = (int)size.Height;
+            _logger.Info("{0} : OnActivate : _mediaPlayer.Video.AspectRatio = {1}", Channel, _mediaPlayer.Video.AspectRatio);
+        }
     }
 }

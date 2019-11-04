@@ -5,7 +5,7 @@ medias:
       location: LOCAL
 #      days: YYYYYYY
       localFile: "C:\\Windows\\Web\\Screen\\img100.jpg"
-      duration : 00:00:15
+      duration : 00:00:05
 
     - type : VIDEO
       location: LOCAL
